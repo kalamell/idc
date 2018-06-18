@@ -15,6 +15,10 @@ class Auth extends CI_Controller {
 		$this->load->view('auth/login');
 	}
 
+	public function do_fb_login() {
+		
+	}
+
 	public function logout() {
 
 		$this->load->helper('cookie');

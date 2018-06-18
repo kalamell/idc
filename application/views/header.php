@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="<?php echo base_url();?>public/vendors/slick/slick-theme.css">
     <link rel="stylesheet" href="<?php echo base_url();?>public/css/main.css">
     <title>Document</title>
+
+    
   </head>
   <body id="root">
     <div class="wrapper">
