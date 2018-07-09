@@ -1,4 +1,3 @@
-<?php $this->load->view('header');?>
 
       <div class="search-wrapper-inside">
         <div class="container">
@@ -131,4 +130,3 @@
           </div>
         </div>
       </section>
-      <?php $this->load->view('footer');?>

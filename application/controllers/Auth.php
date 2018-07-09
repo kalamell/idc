@@ -21,11 +21,26 @@ class Auth extends CI_Controller {
 
 		}
 
-		$this->load->view('auth/login');
+		
 	}
 
 	public function do_fb_login() {
+		$data['user'] = array();
+		
+		if ($this->facebook->is_authenticated())
+		{
+			$user = $this->facebook->request('get', '/me?fields=id,name,email');
+			if (!isset($user['error']))
+			{
+				$this->session->set_userdata(array(
+					'member_id' => $user['id'],
+					'token' => $this->facebook->is_authenticated(),
+					'membe_type' => 'fb',
+				));
+			}
+		}
 
+		redirect('');
 	}
 
 	public function logout() {
