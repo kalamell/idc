@@ -7,16 +7,7 @@ class Base extends CI_Controller {
 	{
 		parent::__construct();
 
-		if ($this->input->cookie('sp_acii')) {
-			$rs = $this->users->gettoken($this->input->cookie('sp_acii'));
-			if ($rs) {
-				$this->session->set_userdata('id', $rs);
-			}
-			$this->id = $rs;
-		} else {
-			if (!$this->session->userdata('id')) redirect('auth');
-			$this->id = $this->session->userdata('id');
-		}
+		
 	}
 
 	protected function render($view, $data = [])
