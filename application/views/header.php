@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="<?php echo base_url();?>public/vendors/slick/slick.css">
     <link rel="stylesheet" href="<?php echo base_url();?>public/vendors/slick/slick-theme.css">
     <link rel="stylesheet" href="<?php echo base_url();?>public/css/main.css">
-    <title>Document</title>
+    <title><?php echo $title;?></title>
+    <meta name="description" content="<?php echo $description;?>">
+
+    
   </head>
   <body id="root">
     <div class="wrapper">

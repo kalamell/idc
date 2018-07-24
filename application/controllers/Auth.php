@@ -7,12 +7,40 @@ class Auth extends CI_Controller {
 
 		parent::__construct();
 		$this->load->helper('security');
+		$this->load->library('facebook');
 		//echo do_hash('_id1');
 	}
 
 	public function index() {
 
-		$this->load->view('auth/login');
+		if ( ! $this->facebook->is_authenticated()) {
+			?>
+			<a href="<?php echo $this->facebook->login_url(); ?>">Login</a>
+			<?php 
+		} else {
+
+		}
+
+		
+	}
+
+	public function do_fb_login() {
+		$data['user'] = array();
+		
+		if ($this->facebook->is_authenticated())
+		{
+			$user = $this->facebook->request('get', '/me?fields=id,name,email');
+			if (!isset($user['error']))
+			{
+				$this->session->set_userdata(array(
+					'member_id' => $user['id'],
+					'token' => $this->facebook->is_authenticated(),
+					'membe_type' => 'fb',
+				));
+			}
+		}
+
+		redirect('');
 	}
 
 	public function logout() {

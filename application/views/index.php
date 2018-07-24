@@ -1,6 +1,5 @@
 
-      
-      <?php $this->load->view('header');?>
+
 
       <div class="banner"><img class="full-width" src="<?php echo base_url();?>public/images/banner.jpg" alt="">
         <div class="search-wrapper">
@@ -211,4 +210,4 @@
         </div>
       </section>
       
-      <?php $this->load->view('footer');?>
+      

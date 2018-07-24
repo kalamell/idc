@@ -55,8 +55,13 @@ ini_set('memory_limit', -1);
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
+<<<<<<< HEAD
 define('APP_URL', 'http://192.168.64.2/idc');
 define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
+=======
+define('APP_URL', 'http://localhost/idc');
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+>>>>>>> 224bdb80f3882c0e9817ff74a665a3bdbc5002af
 
 /*
  *---------------------------------------------------------------

@@ -1,4 +1,4 @@
-<?php $this->load->view('header');?>
+
 
       <div class="profile-wrapper">
         <div class="cover-wrapper"><img src="<?php echo base_url('public');?>/images/cover.jpg" alt="">
@@ -258,5 +258,4 @@
           </div>
         </div>
       </div>
-      <?php $this->load->view('footer');?>
       
