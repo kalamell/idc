@@ -6,7 +6,7 @@ class Designer extends CI_Controller {
 	public function __construct() {
 
 		parent::__construct();
-		$this->load->model('Designer_Model', 'ds');
+		$this->load->model('Designer_model', 'ds');
 	}
 
 	public function index() {

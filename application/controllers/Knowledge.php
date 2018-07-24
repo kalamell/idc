@@ -6,7 +6,7 @@ class Knowledge extends CI_Controller {
 	public function __construct() {
 
 		parent::__construct();
-		$this->load->model('Knowledge_Model', 'kl');
+		$this->load->model('Knowledge_model', 'kl');
 	}
 
 	public function index() {
