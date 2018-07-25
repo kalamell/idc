@@ -12,6 +12,8 @@ class Producer extends Base {
 
 	public function index() {
 		$data['rs'] = $this->pd->getProducerCategory();
+		$data['title'] = 'Find Producer Indrustrial designer producer';
+		$data['description'] = 'คลังรวมผู้ผลิต สินค้า วัตถุดิบ สำหรับการออกแบบอุตสาหกรรมทั้งหมด';
 
 		$this->render('find-producer', $data);
 

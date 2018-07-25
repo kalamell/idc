@@ -21,6 +21,9 @@ class Knowledge extends Base {
 			}
 		}
 
+		$data['title'] = 'Knowledge All indrustrial design idea';
+		$data['description'] = 'คลังรวมไอเดีย และเทรนด์ สำหรับการออกแบบอุตสาหกรรมทั้งหมด';
+
 		$this->render('knowledge', $data);
 	}
 
@@ -35,6 +38,11 @@ class Knowledge extends Base {
 				$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 			}
 		}
+
+
+		$rs = $data['rs']['data'][0];
+		$data['title'] = $rs['title'];
+		$data['description'] = trim(strip_tags($rs['detail']));
 
 		$this->render('knowledge-detail', $data);
 	}

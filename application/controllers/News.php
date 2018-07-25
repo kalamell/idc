@@ -19,6 +19,8 @@ class News extends Base {
 			);
 		}
 
+		$data['title'] = 'News & Event all indrustrial design idea';
+		$data['description'] = 'คลังรวมไอเดีย และเทรนด์ สำหรับการออกแบบอุตสาหกรรมทั้งหมด';
 		$this->render('news', $data);
 	}
 

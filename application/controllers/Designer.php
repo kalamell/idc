@@ -12,6 +12,8 @@ class Designer extends Base {
 	public function index() {
 
 		$data['rs'] = $this->ds->getDesignerCategory();
+		$data['title'] = 'Find Designer Indrustrial designer (Company preelance student)';
+		$data['description'] = 'คลังรวมนักออกแบบ และมืออาชีพหลากหลายแขนงวงการอุตสาหกรรม';
 
 		$this->render('find-designer', $data);
 	}

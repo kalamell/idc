@@ -10,7 +10,8 @@ class Supplier extends Base {
 
 	public function index() {
 		$data['rs'] = $this->sp->getSupplierCategory();
-
+		$data['title'] = 'Find Materail supplier indrustrail materail supplier';
+		$data['description'] = 'คลังรวมนักสินค้า วัตถุดิบ สำหรับการออกแบบอุตสาหกรรม';
 		$this->render('find-supplier', $data);
 	}
 

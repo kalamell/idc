@@ -10,7 +10,8 @@ class Counseling extends Base {
 
 	public function index() {
 		
-		$this->render('counseling');
+		$data['title'] = 'Service';
+		$this->render('counseling', $data);
 	}
 
 	
