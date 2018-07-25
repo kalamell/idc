@@ -33,6 +33,7 @@
                   <li><a href="<?php echo site_url('agency');?>">COLLABORATION AGENCY</a></li>
                   <li><a href="<?php echo site_url('training');?>">TRAINING</a></li>
                   <li><a href="<?php echo site_url('counseling');?>">COUNSELING</a></li>
+                  <li><a href="<?php echo site_url('privacy-policy');?>">COUNSELING</a></li>
                 </ul>
               </div>
             </div>
