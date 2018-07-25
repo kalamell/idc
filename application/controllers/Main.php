@@ -22,4 +22,8 @@ class Main extends Base {
 		$this->load->view('index', $this->data);
 	}
 
+	public function policy() {
+		$this->render('policy');
+	}
+
 }

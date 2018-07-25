@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['privacy-policy'] = 'main/policy';
 $route['default_controller'] = 'main';
 $route['knowledge-detail/([a-z0-9]+)/([a-z0-9]+)'] = 'knowledge/detail/$1/$2';
 $route['knowledge-trend'] = 'knowledge/trend';
