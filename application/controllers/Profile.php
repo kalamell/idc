@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Profile extends CI_Controller {
+class Profile extends Base {
 	
 	public function __construct() {
 
@@ -10,12 +10,12 @@ class Profile extends CI_Controller {
 
 	public function index() {
 
-		$this->load->view('profile');
+		$this->render('profile');
 	}
 
 	public function pageme() {
 		
-		$this->load->view('profile-pageme');
+		$this->render('profile-pageme');
 	}
 
 	

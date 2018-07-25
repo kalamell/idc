@@ -14,12 +14,12 @@ class Main extends Base {
 
 	public function index() {
 		
-		$this->data->knowledge = $this->knowledge->searchKnowledge('s');
-		$this->data->designer = $this->designer->getDesignerCategory();
-		$this->data->producer = $this->producer->getProducerCategory();
-		$this->data->supplier = $this->supplier->getSupplierCategory();
+		$data['knowledge'] = $this->knowledge->searchKnowledge('s');
+		$data['designer'] = $this->designer->getDesignerCategory();
+		$data['producer'] = $this->producer->getProducerCategory();
+		$data['supplier'] = $this->supplier->getSupplierCategory();
 
-		$this->load->view('index', $this->data);
+		$this->render('index', $data);
 	}
 
 	public function policy() {

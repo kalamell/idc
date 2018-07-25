@@ -17,7 +17,7 @@
             <?php foreach($news['News']['data']['data'] as $n => $v):?>
             <div class="col-md-4 col-sm-6">
               <div class="block-wrapper"><a href="<?php echo site_url('news/'.$v['category']['_id'].'/'.$v['_id']);?>">
-                  <div class="responsive-img-sm"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a><a class="title" href="<?php echo site_url('news-detail');?>"><?php echo $v['title'];?></a>
+                  <div class="responsive-img-sm"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a><a class="title" href="<?php echo site_url('news/'.$v['category']['_id'].'/'.$v['_id']);?>"><?php echo $v['title'];?></a>
                 <h4 class="publish-date"><?php echo date('d m Y', strtotime($v['create_date']));?> | News</h4>
                 <p class="detail"><?php echo $v['subtitle'];?></p><a class="readmore" href="<?php echo site_url('news/'.$v['category']['_id'].'/'.$v['_id']);?>">อ่านบทความ</a>
               </div>

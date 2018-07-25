@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Agency extends CI_Controller {
+class Agency extends Base {
 	
 	public function __construct() {
 
@@ -10,7 +10,7 @@ class Agency extends CI_Controller {
 
 	public function index() {
 		
-		$this->load->view('agency');
+		$this->render('agency');
 	}
 
 	

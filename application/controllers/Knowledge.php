@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Knowledge extends CI_Controller {
+class Knowledge extends Base {
 	
 	public function __construct() {
 
@@ -11,56 +11,56 @@ class Knowledge extends CI_Controller {
 
 	public function index() {
 
-		$this->data->knowledge = $this->kl->searchKnowledge('s');
+		$data['knowledge'] = $this->kl->searchKnowledge('s');
 		$category = $this->kl->getKnowledgeCategory();
-		$this->data->knowledgecategory = [];
+		$data['knowledgecategory'] = [];
 		foreach($category['data'] as $k => $v) {
 			if ($v['name'] != 'Knowledge') {
 				$knowledge = $this->kl->getKnowledge($v['_id']);
-				$this->data->knowledgecategory[$v['name']] = $knowledge['data'];
+				$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 			}
 		}
 
-		$this->load->view('knowledge', $this->data);
+		$this->render('knowledge', $data);
 	}
 
 	public function detail($cat_id, $id) {
 
-		$this->data->rs = $this->kl->getKnowledgeById($cat_id, $id);
+		$data['rs'] = $this->kl->getKnowledgeById($cat_id, $id);
 		$category = $this->kl->getKnowledgeCategory();
-		$this->data->knowledgecategory = [];
+		$data['knowledgecategory'] = [];
 		foreach($category['data'] as $k => $v) {
 			if ($v['name'] != 'Knowledge') {
 				$knowledge = $this->kl->getKnowledge($v['_id']);
-				$this->data->knowledgecategory[$v['name']] = $knowledge['data'];
+				$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 			}
 		}
 
-		$this->load->view('knowledge-detail', $this->data);
+		$this->render('knowledge-detail', $data);
 	}
 
 	public function trend() {
 
 		$category = $this->kl->getKnowledgeCategory();
-		$this->data->knowledgecategory = [];
+		$data['knowledgecategory'] = [];
 		foreach($category['data'] as $k => $v) {
 			$knowledge = $this->kl->getKnowledge($v['_id']);
-			$this->data->knowledgecategory[$v['name']] = $knowledge['data'];
+			$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 		}
 
-		$this->load->view('knowledge-trend', $this->data);
+		$this->render('knowledge-trend', $data);
 	}
 
 	public function video() {
 
 		$category = $this->kl->getKnowledgeCategory();
-		$this->data->knowledgecategory = [];
+		$data['knowledgecategory'] = [];
 		foreach($category['data'] as $k => $v) {
 			$knowledge = $this->kl->getKnowledge($v['_id']);
-			$this->data->knowledgecategory[$v['name']] = $knowledge['data'];
+			$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 		}
 		
-		$this->load->view('knowledge-video', $this->data);	
+		$this->render('knowledge-video', $data);	
 	}
 
 }

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class News extends CI_Controller {
+class News extends Base {
 	
 	public function __construct() {
 		parent::__construct();
@@ -10,59 +10,59 @@ class News extends CI_Controller {
 
 	public function index() {
 		$cat = $this->n->getNewsCategory();
-		$this->data->news = array();
+		$data['news'] = array();
 
 		foreach($cat['data'] as $n => $v) {
-			$this->data->news[$v['name']] = array(
+			$data['news'][$v['name']] = array(
 				'_id' => $v['_id'],
 				'data' => $this->n->getNews($v['_id'])
 			);
 		}
 
-		$this->load->view('news', $this->data);
+		$this->render('news', $data);
 	}
 
 	public function detail($news_category_id, $news_id) {
 		$cat = $this->n->getNewsCategory();
-		$this->data->r = $this->n->getNewsById($news_id, $news_category_id);
-		$this->data->news = array();
+		$data['r'] = $this->n->getNewsById($news_id, $news_category_id);
+		$data['news'] = array();
 
 		foreach($cat['data'] as $n => $v) {
-			$this->data->news[$v['name']] = array(
+			$data['news'][$v['name']] = array(
 				'_id' => $v['_id'],
 				'data' => $this->n->getNews($v['_id'])
 			);
 		}
 
-		$this->load->view('news-detail', $this->data);
+		$this->render('news-detail', $data);
 	}
 
 	public function event() {
 		$cat = $this->n->getNewsCategory();
-		$this->data->news = array();
+		$data['news'] = array();
 
 		foreach($cat['data'] as $n => $v) {
-			$this->data->news[$v['name']] = array(
+			$data['news'][$v['name']] = array(
 				'_id' => $v['_id'],
 				'data' => $this->n->getNews($v['_id'])
 			);
 		}
 
-		$this->load->view('news-event', $this->data);
+		$this->render('news-event', $data);
 	}
 
 	public function exhibition() {
 		$cat = $this->n->getNewsCategory();
-		$this->data->news = array();
+		$data['news'] = array();
 
 		foreach($cat['data'] as $n => $v) {
-			$this->data->news[$v['name']] = array(
+			$data['news'][$v['name']] = array(
 				'_id' => $v['_id'],
 				'data' => $this->n->getNews($v['_id'])
 			);
 		}
 
-		$this->load->view('news-exhibition', $this->data);
+		$this->render('news-exhibition', $data);
 	}
 	
 	

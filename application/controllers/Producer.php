@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Producer extends CI_Controller {
+class Producer extends Base {
 	
 	public function __construct() {
 		parent::__construct();
@@ -11,22 +11,22 @@ class Producer extends CI_Controller {
 	}
 
 	public function index() {
-		$this->data->rs = $this->pd->getProducerCategory();
+		$data['rs'] = $this->pd->getProducerCategory();
 
-		$this->load->view('find-producer', $this->data);
+		$this->render('find-producer', $data);
 
 	}
 
 	public function data_list($category_id) {
-		$this->data->rs = $this->pd->getProducerByCategoryAll($category_id);
+		$data['rs'] = $this->pd->getProducerByCategoryAll($category_id);
 
-		$this->load->view('find-producer-list', $this->data);
+		$this->render('find-producer-list', $data);
 
 	}
 	
 	public function get_supplier_id($category_id, $product_id) {
-		$this->data->rs = $this->pd->getProducerById($category_id, $product_id);
+		$data['rs'] = $this->pd->getProducerById($category_id, $product_id);
 
-		$this->load->view('producer-detail', $this->data);
+		$this->render('producer-detail', $data);
 	}
 }

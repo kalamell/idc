@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Counseling extends CI_Controller {
+class Counseling extends Base {
 	
 	public function __construct() {
 
@@ -10,7 +10,7 @@ class Counseling extends CI_Controller {
 
 	public function index() {
 		
-		$this->load->view('counseling');
+		$this->render('counseling');
 	}
 
 	
