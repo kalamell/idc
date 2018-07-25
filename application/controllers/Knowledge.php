@@ -56,6 +56,9 @@ class Knowledge extends Base {
 			$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 		}
 
+		$data['title'] = 'Knowledge Trend Design indrustrial design idea';
+		$data['description'] = 'คลังรวมไอเดีย และเทรนด์ สำหรับการออกแบบอุตสาหกรรมทั้งหมด';
+
 		$this->render('knowledge-trend', $data);
 	}
 
@@ -67,6 +70,9 @@ class Knowledge extends Base {
 			$knowledge = $this->kl->getKnowledge($v['_id']);
 			$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 		}
+
+		$data['title'] = 'Knowledge Video design indrustrial design idea';
+		$data['description'] = 'คลังรวมไอเดีย และเทรนด์ สำหรับการออกแบบอุตสาหกรรมทั้งหมด';
 		
 		$this->render('knowledge-video', $data);	
 	}

@@ -102,7 +102,7 @@ class MY_Model extends CI_Model {
 	public function __construct() {
 		parent::__construct();
 
-		$this->_platform = 'website';
+		$this->_platform = 'web';
 		$this->_lang = 'th';
 		$this->_config = Swagger\Client\Configuration::getDefaultConfiguration()
           ->setUsername('5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9')
