@@ -147,6 +147,7 @@
           </div>
         </div>
       </div>
+      
       <!-- edit Product Modal-->
       <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel">
         <div class="modal-dialog modal-lg" role="document">

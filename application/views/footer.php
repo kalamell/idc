@@ -52,7 +52,7 @@
                     <h3>ค้นหาไอเดียและเทรนวงการออกแบบอุตสาหกรรม</h3>
                     <p>เข้าร่วมกับ ID-SOCIETY.com เพื่อโปรเจคของคุณให้เป็นจริง</p>
                   </div>
-                  <div class="form-wrapper"><a class="login-fb-btn" href=""> <img class="img-responsive" src="<?php echo base_url();?>public/images/login-fb.png" alt=""></a>
+                  <div class="form-wrapper"><a class="login-fb-btn" href="<?php echo site_url('auth/do_fb_login');?>"> <img class="img-responsive" src="<?php echo base_url();?>public/images/login-fb.png" alt=""></a>
                     <p class="textline">หรือ</p>
                     <input type="text" placeholder="Email">
                     <input type="password" placeholder="Password">
