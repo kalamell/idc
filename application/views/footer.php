@@ -285,7 +285,9 @@
     FB.init({
       appId      : '153296218656110',
       xfbml      : true,
-      version    : 'v3.1'
+      cookie     : true,
+      version    : 'v2.6',
+      cookie: true
     });
     FB.AppEvents.logPageView();
   };

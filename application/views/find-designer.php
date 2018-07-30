@@ -2,7 +2,7 @@
       <div class="search-wrapper-inside">
         <div class="container">
           <div class="search-field"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <input type="text" placeholder="ค้นหาชื่อโปรไฟล์ประเภทงาน">
+            <input type="text" placeholder="ค้นหา Designer">
           </div>
         </div>
       </div>

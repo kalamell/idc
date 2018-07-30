@@ -62,8 +62,6 @@ Class Facebook
         $this->load->library('session');
         $this->load->helper('url');
 
-       
-
         if (!isset($this->fb))
         {
             $this->fb = new FB([

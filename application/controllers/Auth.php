@@ -27,6 +27,8 @@ class Auth extends CI_Controller {
 	public function do_fb_login() {
 		$data['user'] = array();
 		
+		
+
 		if ($this->facebook->is_authenticated())
 		{
 			$user = $this->facebook->request('get', '/me?fields=id,name,email');
@@ -55,10 +57,28 @@ class Auth extends CI_Controller {
 			} 
 			redirect('');
 		} else {
+
 			redirect($this->facebook->login_url());
 		}
+	}
+
+	public function fb() {
 
 		
+
+
+		if ($this->facebook->is_authenticated())
+		{
+			$user = $this->facebook->request('get', '/me?fields=id,name,email');
+			if (!isset($user['error']))
+			{
+
+			}
+
+			print_r($user);
+		} else {
+			echo 'faile';
+		}
 	}
 
 	public function logout() {
