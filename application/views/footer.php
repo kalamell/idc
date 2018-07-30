@@ -52,7 +52,7 @@
                     <h3>ค้นหาไอเดียและเทรนวงการออกแบบอุตสาหกรรม</h3>
                     <p>เข้าร่วมกับ ID-SOCIETY.com เพื่อโปรเจคของคุณให้เป็นจริง</p>
                   </div>
-                  <div class="form-wrapper"><a class="login-fb-btn" href="<?php echo site_url('auth/do_fb_login');?>"> <img class="img-responsive" src="<?php echo base_url();?>public/images/login-fb.png" alt=""></a>
+                  <div class="form-wrapper"><a class="login-fb-btn" href="javascript:void(0)"> <img class="img-responsive" src="<?php echo base_url();?>public/images/login-fb.png" alt=""></a>
                     <p class="textline">หรือ</p>
                     <input type="text" placeholder="Email">
                     <input type="password" placeholder="Password">
@@ -255,51 +255,105 @@
 
       $(function() {
         $('button.btn_search').on('click', function() {
-        url = $('base').attr('href') + 'index.php?route=product/search';
+          url = $('base').attr('href') + 'index.php?route=product/search';
 
-        var value = $('input[name=\'search\']').val();
+          var value = $('input[name=\'search\']').val();
 
-        if (value) {
-          url += '&search=' + encodeURIComponent(value);
-        }
+          if (value) {
+            url += '&search=' + encodeURIComponent(value);
+          }
 
-        location = url;
-      });
+          location = url;
+        });
 
-      $('input#txt-search').on('keydown', function(e) {
-        var val = $(this).val();
-        if (e.keyCode == 13) {
-           if (val !='') {
-              top.location.href = '<?php echo site_url('knowledge');?>?s=' + encodeURIComponent(val);
-           } else {
-            top.location.href = '<?php echo site_url('knowledge');?>';
-           }
-        }
-      });
+        $('input#txt-search').on('keydown', function(e) {
+          var val = $(this).val();
+          if (e.keyCode == 13) {
+             if (val !='') {
+                top.location.href = '<?php echo site_url('knowledge');?>?s=' + encodeURIComponent(val);
+             } else {
+              top.location.href = '<?php echo site_url('knowledge');?>';
+             }
+          }
+        });
+
+        $("a.login-fb-btn").on('click', function() {
+          checkLoginState();
+        })
 
       })
     </script>
 
     <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '153296218656110',
-      xfbml      : true,
-      cookie     : true,
-      version    : 'v2.6',
-      cookie: true
-    });
-    FB.AppEvents.logPageView();
-  };
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      console.log(response);
+      // The response object is returned with a status field that lets the
+      // app know the current login status of the person.
+      // Full docs on the response object can be found in the documentation
+      // for FB.getLoginStatus().
+      if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        testAPI();
+      } else {
+        // The person is not logged into your app or we are unable to tell.
+        loginfb();
+      }
+    }
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+
+    function loginfb() {
+      FB.login(function(response) {
+          if (response.authResponse) {
+           console.log('Welcome!  Fetching your information.... ');
+           FB.api('/me', function(response) {
+             console.log('Good to see you, ' + response.name + '.');
+           });
+          } else {
+           console.log('User cancelled login or did not fully authorize.');
+          }
+      }, {scope: 'email, public_profile'});
+    }
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '153296218656110',
+        xfbml      : true,
+        cookie     : true,
+        version    : 'v2.6',
+      });
+      
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+    function testAPI() {
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', function(response) {
+        console.log('Successful login for: ' + response.name);
+        
+      });
+    }
+  </script>
 
   </body>
 </html>
