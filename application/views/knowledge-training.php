@@ -10,14 +10,14 @@
       <div class="banner"><img class="full-width" src="<?php echo base_url('public/');?>images/knowledge-banner.jpg" alt=""></div>
       <section class="section-wrapper">
         <div class="container">
-          <h2 class="header-text">TREND DESIGN</h2>
+          <h2 class="header-text">TRAINING</h2>
           <div class="box-sub">
-            <h2>TREND DESIGN</h2>
+            <h2>TRAINING</h2>
           </div>
           <div class="row equal">
 
             
-            <?php foreach($knowledgecategory['Train Design'] as $k => $v):?>
+            <?php $no = 0; foreach($knowledgecategory['Training'] as $k => $v):?>
             <div class="col-md-4 col-sm-6">
                 <div class="block-wrapper">
                   <a href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">
@@ -26,9 +26,7 @@
                   <p class="detail"><?php echo $v['subtitle'];?></p><a class="readmore" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">อ่านบทความ</a>
                 </div>
               </div>
-            <?php endforeach;?>
-            
-           
+            <?php $no ++; endforeach;?>
           </div>
 
           <div class="paginage" style="display: none;"><a href=""><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
@@ -64,13 +62,13 @@
               ?>
             <?php $no++; endforeach;?>
 
-              <div class="clearfix"></div>
+
 
               <div class="box-sub">
-                <h2>TRAINING</h2><a href="<?php echo site_url('knowledge-training');?>"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                <h2>Trend Design</h2><a href="<?php echo site_url('knowledge-trend');?>"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
               </div>
 
-              <?php $no = 1; foreach($knowledgecategory['Training'] as $k => $v):?>
+              <?php $no = 1; foreach($knowledgecategory['Train Design'] as $k => $v):?>
               <div class="block-wrapper half">
                 <div class="row">
                   <div class="col-xs-6"><a href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">
@@ -88,6 +86,8 @@
               }
               ?>
             <?php $no++; endforeach;?>
+
+
 
             </div>
             <div class="col-md-6">
@@ -114,46 +114,7 @@
               ?>
             <?php $no++; endforeach;?>
               
-              <!--<div class="block-wrapper half">
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="responsive-img-sm noreadmore"><img src="<?php echo base_url('public/');?>images/thumbnail.png" alt=""></div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="text-wrapper"><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                      <h4 class="publish-date">26 มกราคม 2561 | Knowledge</h4>
-                      <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-wrapper half">
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="responsive-img-sm noreadmore"><img src="<?php echo base_url('public/');?>images/thumbnail.png" alt=""></div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="text-wrapper"><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                      <h4 class="publish-date">26 มกราคม 2561 | Knowledge</h4>
-                      <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-wrapper half">
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="responsive-img-sm noreadmore"><img src="<?php echo base_url('public/');?>images/thumbnail.png" alt=""></div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="text-wrapper"><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                      <h4 class="publish-date">26 มกราคม 2561 | Knowledge</h4>
-                      <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            -->
+              
             </div>
           </div>
         </div>

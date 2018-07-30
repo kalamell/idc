@@ -10,8 +10,6 @@ class Main extends Base {
 		$this->load->model('Designer_model', 'designer');
 		$this->load->model('Producer_model', 'producer');
 		$this->load->model('Supplier_model', 'supplier');
-
-		print_r($this->session->userdata());
 	}
 
 	public function index() {

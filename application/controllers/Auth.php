@@ -8,7 +8,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('security');
 		$this->load->library('facebook');
-		//echo do_hash('_id1');
+		$this->load->model('Auth_model', 'ad');
 	}
 
 	public function index() {
@@ -32,15 +32,33 @@ class Auth extends CI_Controller {
 			$user = $this->facebook->request('get', '/me?fields=id,name,email');
 			if (!isset($user['error']))
 			{
+				
+				/*
+				$data = array(
+					'type' => 'facebook',
+					'username' => '2008864212478754',
+					'password' => 'EAALLe7otlOQBAJrgscJDizUgTj2Ln4AkzUrX8J4xBwvZAeh0XVEx2ai4qvZBGiDr7vIZBajUc9XZBZAOX04yWNkeT7rJJESZC2pxaUqHgkPDZA2QPWotbVVAMw8ODZAwLyXETA9sZB6tPWrnLpV2QlQZAs8gZAoau8xCyldHF0MZBZBU7JwZDZD',
+				);
+				$res = $this->ad->login($data);
+				*/
+
+				//print_r($res);
+				
+
 				$this->session->set_userdata(array(
 					'member_id' => $user['id'],
+					'email' => $user['email'],
 					'token' => $this->facebook->is_authenticated(),
 					'membe_type' => 'fb',
+					'name' => $user['name'],
 				));
-			}
+			} 
+			redirect('');
+		} else {
+			redirect($this->facebook->login_url());
 		}
 
-		redirect('');
+		
 	}
 
 	public function logout() {
@@ -53,6 +71,10 @@ class Auth extends CI_Controller {
 	public function login() {
 
 		$this->load->view('auth/login');
+	}
+
+	public function logout_fb() {
+		$this->facebook->destroy_session();
 	}
 
 	public function register() {
@@ -110,5 +132,7 @@ class Auth extends CI_Controller {
 
 		echo json_encode($ar);		
 	}
+
+
 
 }

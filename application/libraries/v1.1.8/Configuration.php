@@ -81,8 +81,10 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'http://150.95.31.184:3000/api/v1';
-    //protected $host = 'https://backend.thai-idc.com/api/v1';
+    //protected $host = 'http://150.95.31.184:3000/api/v1';
+    protected $host = 'https://backend.thai-idc.com/api/v1';
+
+    //https://backend.thai-idc.com
 
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default

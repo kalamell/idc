@@ -11,7 +11,7 @@ class Knowledge extends Base {
 
 	public function index() {
 
-		$data['knowledge'] = $this->kl->searchKnowledge('s');
+		$data['knowledge'] = $this->kl->searchKnowledge($this->input->get('s') ? $this->input->get('s') : ' ');
 		$category = $this->kl->getKnowledgeCategory();
 		$data['knowledgecategory'] = [];
 		foreach($category['data'] as $k => $v) {
@@ -76,5 +76,21 @@ class Knowledge extends Base {
 		
 		$this->render('knowledge-video', $data);	
 	}
+
+	public function training() {
+
+		$category = $this->kl->getKnowledgeCategory();
+		$data['knowledgecategory'] = [];
+		foreach($category['data'] as $k => $v) {
+			$knowledge = $this->kl->getKnowledge($v['_id']);
+			$data['knowledgecategory'][$v['name']] = $knowledge['data'];
+		}
+
+		$data['title'] = 'Knowledge Training indrustrial design idea';
+		$data['description'] = 'คลังรวมไอเดีย และเทรนด์ สำหรับการออกแบบอุตสาหกรรมทั้งหมด';
+
+		$this->render('knowledge-training', $data);
+	}
+
 
 }

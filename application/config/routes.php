@@ -54,6 +54,7 @@ $route['default_controller'] = 'main';
 $route['knowledge-detail/([a-z0-9]+)/([a-z0-9]+)'] = 'knowledge/detail/$1/$2';
 $route['knowledge-trend'] = 'knowledge/trend';
 $route['knowledge-video'] = 'knowledge/video';
+$route['knowledge-training'] = 'knowledge/training';
 
 $route['find-designer'] = 'designer';
 $route['designer/list/([a-z0-9]+)'] = 'designer/data_list/$1';
