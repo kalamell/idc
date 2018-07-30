@@ -13,8 +13,4 @@ class Contact extends Base {
 		$data['description'] = 'กองพัฒนาอุตสาหกรรมสร้างสรรค์ (กส.กสอ.) ซอยตรีมิตร ถนนพระราม 4 เขตคลองเตย กรุงเทพฯ 10110';
 		$this->render('contact', $data);
 	}
-
-	
-
-	
 }
