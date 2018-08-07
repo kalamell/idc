@@ -140,7 +140,7 @@
           <div class="row equal">
             <?php foreach($supplier['data'] as $k => $v):?>
               <div class="col-md-4 col-sm-6">
-              <div class="head-img"><a href="<?php echo site_url('supplier/'.$v['_id']);?>"><img src="<?php echo $v['image']['thumbnail'];?>" alt="">
+              <div class="head-img"><a href="<?php echo site_url('supplier/list/'.$v['_id']);?>"><img src="<?php echo $v['image']['thumbnail'];?>" alt="">
                   <div class="text-wrapper">
                     <p><?php echo $v['name']['en'];?></p>
                     <p><?php echo $v['name']['th'];?></p>
