@@ -61,6 +61,37 @@
                     <div class="tab-pane fade in active" id="companyTab" role="tabpanel">
                       <div class="profile-list-wrapper">
                         <div class="row equal">
+
+                          <?php foreach($rs['data'] as $k => $v):?>
+                          <?php if ($v['_id'] != $this->uri->segment(3)):?>
+                          <div class="col-sm-6 col-md-4">
+                            <div class="profile-card-wrapper">
+                              <div class="background-wrapper"><img src="<?php echo base_url('public');?>/images/cover.jpg" alt=""></div>
+                              <div class="profile-img"><img src="<?php echo $v['user']['image']['thumbnail'];?>" alt=""></div>
+                              <div class="profile-name"> 
+                                <p><?php echo $v['user']['firstname'].' '.$v['user']['lastname'];?></p>
+                              </div>
+                              <div class="profile-tel"><a href=""><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <?php echo $v['tel'];?></a></div>
+                              <div class="assets-list">
+                                <p><?php echo $v['category']['name'];?><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></p>
+                                <div class="assets-list-child-wrapper">
+                                  <div class="assets-list-child">
+                                    
+                                    <ul>
+                                      <?php foreach($v['category'] as $_v):?>
+                                      <li><a href="<?php echo site_url('designer/list/'.$_v['_id']);?>"><?php echo $_v['name']['th'];?></a></li>
+                                      <?php endforeach;?>
+                                      <!--<li><a href="">Graphic Designer</a></li>
+                                      <li><a href="">Product Designer</a></li>
+                                      <li><a href="">Other</a></li>-->
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div><a class="btn-big" href="<?php echo site_url('profile/'.$this->uri->segment(3).'/'.$v['_id']);?>">ดูโปรไฟล์</a>
+                            </div>
+                          </div>
+                          <?php endif;?>
+                          <?php endforeach;?>
                           
                           <!--<div class="col-md-6 col-lg-4">
                             <div class="profile-card-wrapper">

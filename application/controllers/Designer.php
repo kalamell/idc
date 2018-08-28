@@ -47,7 +47,8 @@ class Designer extends Base {
 				$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 			}
 		}
-
+		
+		$data['rs'] = $this->ds->getDesignerByCategory($category_id);
 
 		
 		$this->render('profile', $data);
