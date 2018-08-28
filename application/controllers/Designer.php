@@ -29,8 +29,6 @@ class Designer extends Base {
 	public function profile($category_id, $profile_id) {
 
 		$data['r'] = $this->ds->getDesignerById($category_id, $profile_id);
-
-		print_r($data);
 		
 		$this->render('profile', $data);
 	}
