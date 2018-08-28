@@ -7,6 +7,7 @@ class Designer extends Base {
 
 		parent::__construct();
 		$this->load->model('Designer_model', 'ds');
+		
 	}
 
 	public function index() {
@@ -29,6 +30,25 @@ class Designer extends Base {
 	public function profile($category_id, $profile_id) {
 
 		$data['r'] = $this->ds->getDesignerById($category_id, $profile_id);
+
+		$this->load->model('Knowledge_model', 'knowledge');
+		$this->load->model('Designer_model', 'designer');
+		$this->load->model('Producer_model', 'producer');
+		$this->load->model('Supplier_model', 'supplier');
+		
+
+		$data['knowledge'] = $this->knowledge->searchKnowledge('s');
+		
+		$category = $this->knowledge->getKnowledgeCategory();
+		$data['knowledgecategory'] = [];
+		foreach($category['data'] as $k => $v) {
+			if ($v['name'] != 'Knowledge') {
+				$knowledge = $this->knowledge->getKnowledge($v['_id']);
+				$data['knowledgecategory'][$v['name']] = $knowledge['data'];
+			}
+		}
+
+
 		
 		$this->render('profile', $data);
 	}

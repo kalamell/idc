@@ -138,6 +138,26 @@
                     <div class="tab-pane fade" id="articleTab" role="tabpanel">
                       <div class="article-list-wrapper">
                         <div class="row equal">
+
+                          <?php 
+                          $i=0;
+                          foreach($knowledge['data'][0]['knowledges'] as $k => $v) {
+                            if ($i < 5) {
+                            ?>
+
+                            <div class="col-md-6 col-lg-4">
+                              <div class="block-wrapper">
+                                  <a href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">
+                                  <div class="responsive-img-sm"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a><a class="title" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>"><?php echo $v['title'];?></a>
+                                <h4 class="publish-date">26 มกราคม 2561 | Knowledge</h4>
+                                <p class="detail"><?php echo $v['subtitle'];?></p><a class="readmore" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">อ่านบทความ</a>
+                              </div>
+                            </div>
+
+                          <?php 
+                            }
+                          }
+                          ?>
                           
                           <!--
                           <div class="col-md-6 col-lg-4">
@@ -168,9 +188,28 @@
                     <div class="tab-pane fade" id="videoTab" role="tabpanel">
                       <div class="video-list-wrapper">
                         <div class="row equal">
+
+                          <?php $no = 1; foreach($knowledgecategory['Video'] as $k => $v):?>
+                          <div class="block-wrapper half">
+                            <div class="row">
+                              <div class="col-xs-6"><a href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">
+                                  <div class="responsive-img-sm"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a></div>
+                              <div class="col-xs-6">
+                                <div class="text-wrapper"><a class="title" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>"><?php echo $v['title'];?></a>
+                                  <h4 class="publish-date"><?php echo date('d m Y', strtotime($v['create_date']));?> | Knowledge</h4>
+                                  <p class="detail"><?php echo $v['subtitle'];?></p><a class="readmore" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">อ่านบทความ</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <?php if ($no == 5) {
+                            break;
+                          }
+                          ?>
+                        <?php $no++; endforeach;?>
+                                      
                           
-                          <!--
-                          <div class="block-wrapper half">
+                          <!--<div class="block-wrapper half">
                             <div class="row">
                               <div class="col-xs-6"><a href="<?php echo site_url('knowledge-detail');?>">
                                   <div class="responsive-img-sm noreadmore"><img src="<?php echo base_url('public');?>/images/thumbnail.png" alt=""/></div></a></div>
@@ -205,16 +244,37 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
--->
+                          </div>-->
+
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="trendTab" role="tabpanel">
                       <div class="trend-list-wrapper">
                         <div class="row equal">
+
+                        <?php $no = 1; foreach($knowledgecategory['Train Design'] as $k => $v):?>
                           
-                        <!--<div class="col-md-6 col-lg-4">
+
+                          <div class="col-md-6 col-lg-4">
+                            <div class="block-wrapper half"><a href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">
+                                <div class="responsive-img-sm noreadmore"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a>
+                              <div class="text-wrapper"><a class="title" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>"><?php echo $v['title'];?></a>
+                                <h4 class="publish-date"><?php echo date('d m Y', strtotime($v['create_date']));?> | Knowledge</h4>
+                                <p class="detail"><?php echo $v['subtitle'];?></p>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <?php if ($no == 5) {
+                            break;
+                          }
+                          ?>
+                        <?php $no++; endforeach;?>
+                                      
+                        <!--
+                          <div class="col-md-6 col-lg-4">
                             <div class="block-wrapper half"><a href="">
                                 <div class="responsive-img-sm noreadmore"><img src="<?php echo base_url('public');?>/images/thumbnail.png" alt=""/></div></a>
                               <div class="text-wrapper"><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
