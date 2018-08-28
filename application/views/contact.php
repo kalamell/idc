@@ -13,7 +13,7 @@
             <div class="col-md-4">
               <div class="gray-label"> 
                 <h2> 
-                  <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/contact-map-icon.png" alt=""></div><span>ที่อยู่สำนักงาน</span>
+                  <div class="icon-wrapper"><img src="<?php echo base_url();?>public/images/contact-map-icon.png" alt=""></div><span>ที่อยู่สำนักงาน</span>
                 </h2>
               </div>
               <p class="text-wrapper">กองพัฒนาอุตสาหกรรมสร้างสรรค์ (กส.กสอ.)<br>ซอยตรีมิตร ถนนพระราม 4 เขตคลองเตย กรุงเทพฯ 10110</p>
@@ -21,7 +21,7 @@
             <div class="col-md-4">
               <div class="gray-label"> 
                 <h2> 
-                  <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/contact-time-icon.png" alt=""></div><span>วันและเวลาทำการ</span>
+                  <div class="icon-wrapper"><img src="<?php echo base_url();?>public/images/contact-time-icon.png" alt=""></div><span>วันและเวลาทำการ</span>
                 </h2>
               </div>
               <p class="text-wrapper">วันจันทร์ - ศุกร์ 08:30 - 18:30<br>หยุดวันเสาร์ - อาทิตย์ และวันหยุดนักขัตฤกษ์</p>
@@ -29,10 +29,10 @@
             <div class="col-md-4">
               <div class="gray-label"> 
                 <h2> 
-                  <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/contact-mail-icon.png" alt=""></div><span>โทรศัพท์และอีเมล์</span>
+                  <div class="icon-wrapper"><img src="<?php echo base_url();?>public/images/contact-mail-icon.png" alt=""></div><span>โทรศัพท์และอีเมล์</span>
                 </h2>
               </div>
-              <p class="text-wrapper">โทรศัพท์ 02 367 8288<br>โทรสาร 02 390 2315<br>อีเมล์ webmaster@dip.go.th<br>LINE @whx4725g</p><img src="<?php echo base_url('public');?>/images/qrcode.png" alt="">
+              <p class="text-wrapper">โทรศัพท์ 02 367 8288<br>โทรสาร 02 390 2315<br>อีเมล์ webmaster@dip.go.th<br>LINE @whx4725g</p><img src="<?php echo base_url();?>public/images/qrcode.png" alt="">
             </div>
           </div>
           <div class="map-wrapper">

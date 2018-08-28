@@ -21,7 +21,9 @@
             </div>
 
             <?php 
+            $i=0;
             foreach($knowledge['data'][0]['knowledges'] as $k => $v) {
+              if ($i < 5) {
               ?>
               <div class="col-md-4 col-sm-6">
                 <div class="block-wrapper">
@@ -34,6 +36,8 @@
               </div>
 
               <?php 
+              $i++;
+              }
             }
             ?>
           </div>
@@ -47,7 +51,13 @@
             //print_r($designer['data']);
             ?>
 
-            <?php foreach($designer['data'] as $k => $v):?>
+            <?php 
+            $i=0;
+            foreach($designer['data'] as $k => $v):
+            
+            if ($i < 4) {
+            
+            ?>
             <div class="col-md-4 col-sm-6">
               <div class="block-wrapper"><a href="<?php echo site_url('designer/list/'.$v['_id']);?>">
                   <div class="responsive-img-md"><img src="<?php echo $v['image']['thumbnail'];?>" alt="">
@@ -57,7 +67,19 @@
                     </div>
                   </div></a></div>
             </div>
-            <?php endforeach;?>
+            <?php 
+            $i++;
+            }
+          endforeach;?>
+            <div class="col-md-8 col-sm-12">
+              <div class="block-wrapper"><a href="<?php echo site_url('find-designer');?>">
+                  <div class="responsive-img-md"><img src="<?php echo base_url();?>public/images/01.png" alt="">
+                    <div class="text-wrapper">
+                      <p>MORE DESIGNER</p>
+                      <p>นักออกแบบด้านอื่นๆ  </p>
+                    </div>
+                  </div></a></div>
+            </div>
             
             
           </div>
@@ -79,58 +101,17 @@
 
             <?php endforeach;?>
             
-            <!--
-
-            <div class="col-md-4 col-sm-6">
-              <div class="block-wrapper"><a href="">
-                  <div class="responsive-img-sm"><img src="<?php echo base_url();?>public/images/thumbnail.png" alt=""></div></a><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                <h4 class="publish-date">26 มกราคม 2561</h4>
-                <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="head-img"><img src="<?php echo base_url();?>public/images/producer-2.png" alt="">
-                <div class="text-wrapper">
-                  <p>PLASTIC PRODUCER</p>
-                  <p>ผู้ผลิตสินค้าอุตสาหกรรมพลาสติก</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-              <div class="head-img"><a href=""><img src="<?php echo base_url();?>public/images/producer-3.png" alt="">
-                  <div class="text-wrapper">
-                    <p>TEXTILE PRODUCER</p>
-                    <p>ผู้ผลิตสินค้าอุตสาหกรรมสิ่งทอและเครื่องนุ่งห่ม</p>
-                  </div></a></div>
-            </div>
-
-            <div class="col-md-4 col-sm-6">
-              <div class="block-wrapper"><a href="">
-                  <div class="responsive-img-sm"><img src="<?php echo base_url();?>public/images/thumbnail.png" alt=""></div></a><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                <h4 class="publish-date">26 มกราคม 2561</h4>
-                <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="block-wrapper"><a href="">
-                  <div class="responsive-img-sm"><img src="<?php echo base_url();?>public/images/thumbnail.png" alt=""></div></a><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                <h4 class="publish-date">26 มกราคม 2561</h4>
-                <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p>
-              </div>
-            </div>
-          
             <div class="col-sm-12">
-              <div class="block-wrapper"><a href="">
+              <div class="block-wrapper"><a href="<?php echo site_url('find-designer');?>">
                   <div class="responsive-img-md big"><img src="<?php echo base_url();?>public/images/more-producer.png" alt="">
                     <div class="text-wrapper nohover">
-                      <p>MORE DESIGNER</p>
+                      <p>MORE PRODUCER</p>
                       <p>ผู้ผลิตสินค้าวัตถุดิบอุตสาหกรรมด้านอื่น  </p>
                     </div>
                   </div></a></div>
             </div>
 
-          -->
+
           </div>
         </div>
       </section>
@@ -199,7 +180,7 @@
 
             <div class="col-sm-12">
               <div class="block-wrapper"><a href="<?php echo site_url('find-designer');?>">
-                  <div class="responsive-img-md big orange"><img src="<?php echo base_url();?>public/images/more-supplier.png" alt="">
+                  <div class="responsive-img-md big orange"><img src="<?php echo base_url();?>public/images/05.png" alt="">
                     <div class="text-wrapper">
                       <p>MORE DESIGNER</p>
                       <p>ผู้ผลิตสินค้าวัตถุดิบอุตสาหกรรมด้านอื่น  </p>

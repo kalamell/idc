@@ -4,6 +4,10 @@ $(document).ready(function () {
     $('.main-menu').slideToggle()
   })
 
+  $('.banner-slide-block').slick({
+    arrows: false,
+  })
+
 
 
   $('.slider-single').slick({

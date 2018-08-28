@@ -8,7 +8,7 @@
                   <li><a href="">
                       <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/fb-footer-icon.png" alt=""></div><span>/idsocietycom</span></a></li>
                   <li><a href="">
-                      <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/email-footer-icon.png" alt=""></div><span>contact@id-society.com</span></a></li>
+                      <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/email-footer-icon.png" alt=""></div><span> thaiidc.dcr@gmail.com</span></a></li>
                   <li><a href="">
                       <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/tel-footer-icon.png" alt=""></div><span>02-202-4414-18</span></a></li>
                 </ul>
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="copyright"> 
-          <p>© 2018 TIDC (Thailand industrial Design Center). All right reserved</p>
+          <p>© 2018 THAI-IDC (Thailand Industrail Design Center). All right reserved</p>
         </div>
       </footer>
 

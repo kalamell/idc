@@ -11,10 +11,9 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-5 col-md-3">
-                <div class="profile-img-wrapper"><img src="<?php echo base_url('public');?>/images/profile-img.jpg" alt="">
-                  <!--<label class="uploadProfileImg" for="uploadProfileImg"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-                    <input id="uploadProfileImg" type="file" style="display:none">
-                  </label>-->
+                <div class="profile-img-wrapper">
+                  <!--<img src="<?php echo base_url('public');?>/images/profile-img.jpg" alt="">-->
+                  
                   <div class="backdrop-custom"></div>
                 </div>
               </div>
@@ -48,22 +47,7 @@
                         <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/pageme-tel-icon.png" alt=""></div>
                         <div class="text-wrapper"><a href="tel:<?php echo $r['data'][0]['tel'];?>"><?php echo $r['data'][0]['tel'];?></a></div>
                       </div>
-                      <!--<div class="list-wrapper"> 
-                        <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/pageme-web-icon.png" alt=""></div>
-                        <div class="text-wrapper"><a href="">m.tarad.com/shop/thanyamane</a></div>
-                      </div>
-                      <div class="list-wrapper"> 
-                        <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/pageme-fb-icon.png" alt=""></div>
-                        <div class="text-wrapper"><a href="">m.tarad.com/shop/thanyamane</a></div>
-                      </div>
-                      <div class="list-wrapper"> 
-                        <div class="icon-wrapper"><img src="<?php echo base_url('public');?>/images/pageme-map-icon.png" alt=""></div>
-                        <div class="text-wrapper">
-                          <p>แผนที่</p>
-                          <p>29/1 ซอยศรีจันทร์6 ตลาดอำเภอเมืองจันทบุรี จันทบุรี</p>
-                        </div>
-                      </div>
-                    -->
+                      
                     </div>
 
 
@@ -77,7 +61,8 @@
                     <div class="tab-pane fade in active" id="companyTab" role="tabpanel">
                       <div class="profile-list-wrapper">
                         <div class="row equal">
-                          <div class="col-md-6 col-lg-4">
+                          
+                          <!--<div class="col-md-6 col-lg-4">
                             <div class="profile-card-wrapper">
                               <div class="background-wrapper"><img src="<?php echo base_url('public');?>/images/cover.jpg" alt=""/></div>
                               <div class="profile-img"><img src="<?php echo base_url('public');?>/images/profile-img.jpg" alt=""/></div>
@@ -146,12 +131,15 @@
                               </div><a class="btn-big" href="<?php echo site_url('profile-pageme');?>">ดูโปรไฟล์</a>
                             </div>
                           </div>
+                          -->
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="articleTab" role="tabpanel">
                       <div class="article-list-wrapper">
                         <div class="row equal">
+                          
+                          <!--
                           <div class="col-md-6 col-lg-4">
                             <div class="block-wrapper"><a href="<?php echo site_url('knowledge-detail');?>">
                                 <div class="responsive-img-sm"><img src="<?php echo base_url('public');?>/images/thumbnail.png" alt=""/></div></a><a class="title" href="<?php echo site_url('knowledge-detail');?>">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
@@ -173,12 +161,15 @@
                               <p class="detail">มหภาคแคนยอน ผู้นำเทียมทาน โอ้ยซังเต สุริยยาตร์โทรโฮมคอร์รัปชันเย้ว เอสเพรสโซพาสเจอร์ไรส์ เซอร์ไพรส์ดั๊มพ์รุมบ้าก่อนหน้า จิ๊กโปรเจ็กต์อุรังคธาตุ อินเตอร์เคส บ๊อกซ์จิ๊กโก๋วินแพ็ค สไตรค์พุดดิ้งนอมินีฮัม ว้อดก้าแบล็ควอร์รูมราเม็ง คีตกวีแฟล็ตปิกอัพฟลุต เสกสรรค์ ละตินชนะเลิศกุนซือบู๊ บุ๋นด็อกเตอร์เอ๋ โฮมสมิติเวชแครกเกอร์อุตสาหการต่อยอด</p><a class="readmore" href="<?php echo site_url('knowledge-detail');?>">อ่านบทความ</a>
                             </div>
                           </div>
+-->
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="videoTab" role="tabpanel">
                       <div class="video-list-wrapper">
                         <div class="row equal">
+                          
+                          <!--
                           <div class="block-wrapper half">
                             <div class="row">
                               <div class="col-xs-6"><a href="<?php echo site_url('knowledge-detail');?>">
@@ -215,13 +206,15 @@
                               </div>
                             </div>
                           </div>
+-->
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane fade" id="trendTab" role="tabpanel">
                       <div class="trend-list-wrapper">
                         <div class="row equal">
-                          <div class="col-md-6 col-lg-4">
+                          
+                        <!--<div class="col-md-6 col-lg-4">
                             <div class="block-wrapper half"><a href="">
                                 <div class="responsive-img-sm noreadmore"><img src="<?php echo base_url('public');?>/images/thumbnail.png" alt=""/></div></a>
                               <div class="text-wrapper"><a class="title" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
@@ -248,6 +241,7 @@
                               </div>
                             </div>
                           </div>
+-->
                         </div>
                       </div>
                     </div>
