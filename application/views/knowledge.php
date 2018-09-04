@@ -18,7 +18,7 @@
           <div class="row equal">
 
             <?php 
-            foreach($knowledge['data'][0]['knowledges'] as $k => $v) {
+            foreach($knowledgecategory['Knowledge'] as $k => $v) {
               ?>
               <div class="col-md-4 col-sm-6">
                 <div class="block-wrapper">
