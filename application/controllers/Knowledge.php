@@ -55,6 +55,8 @@ class Knowledge extends Base {
 		}
 
 
+		//print_r($data['rs']);
+
 		$rs = $data['rs']['data'][0];
 		$data['title'] = $rs['title'];
 		$data['description'] = trim(strip_tags($rs['detail']));

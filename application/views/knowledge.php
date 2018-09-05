@@ -23,9 +23,9 @@
               <div class="col-md-4 col-sm-6">
                 <div class="block-wrapper">
                   <a href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">
-                    <div class="responsive-img-sm"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a><a class="title" href=""><?php echo $v['title'];?></a>
+                    <div class="responsive-img-sm"><img src="<?php echo $v['image']['thumbnail'];?>" alt=""></div></a><a class="title" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>"><?php echo $v['title'];?></a>
                   <h4 class="publish-date"><?php echo date('d/m/Y', strtotime($v['create_date']));?></h4>
-                  <p class="detail"><?php echo $v['subtitle'];?></p><a class="readmore" href="<?php echo site_url('knowledge-detail/'.$v['_id']);?>">อ่านบทความ</a>
+                  <p class="detail"><?php echo $v['subtitle'];?></p><a class="readmore" href="<?php echo site_url('knowledge-detail/'.$v['category']['_id'].'/'.$v['_id']);?>">อ่านบทความ</a>
                 </div>
               </div>
 
