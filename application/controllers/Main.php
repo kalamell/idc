@@ -14,7 +14,34 @@ class Main extends Base {
 
 	public function index() {
 		
-		$data['knowledge'] = $this->knowledge->searchKnowledge('s');
+		//$data['knowledge'] = $this->knowledge->searchKnowledge('');
+
+		$category = $this->knowledge->getKnowledgeCategory();
+		$data['knowledgecategory'] = [];
+		foreach($category['data'] as $k => $v) {
+			$knowledge = $this->knowledge->getKnowledge($v['_id']);
+			foreach($knowledge['data'] as $inx => $_v) {
+				
+				$data['knowledgecategory'][$_v['_id']] = array(
+					'_id' => $_v['_id'],
+					'title' => $_v['title'],
+					'subtitle' => $_v['subtitle'],
+					'create_date' => $_v['create_date'],
+					'like_count' => $_v['like_count'],
+					'is_like' => $_v['is_like'],
+					'image' => $_v['image']['full'],
+					'youtube_id' => $_v['youtube_id'],
+					'detail' => $_v['detail'],
+					'share_url' => $_v['share_url'],
+					'category' => array('_id' => $_v['category']['_id'])
+				);
+
+			}
+			
+		}
+
+		ksort($data['knowledgecategory']);
+		$data['knowledge'] = $data['knowledgecategory'];
 		$data['designer'] = $this->designer->getDesignerCategory();
 		$data['producer'] = $this->producer->getProducerCategory();
 		$data['supplier'] = $this->supplier->getSupplierCategory();
