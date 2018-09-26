@@ -63,10 +63,6 @@ class Auth extends CI_Controller {
 	}
 
 	public function fb() {
-
-		
-
-
 		if ($this->facebook->is_authenticated())
 		{
 			$user = $this->facebook->request('get', '/me?fields=id,name,email');
@@ -81,10 +77,21 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	public function dologin() {
+		
+		if ($this->input->post('type') == 'facebook') {
+			$this->session->set_userdata(array(
+				'login' => $this->input->post('id'),
+				'name' => $this->input->post('name'),
+				'token' => $this->input->post('_token'),
+			));
+		}
+	}
+
 	public function logout() {
 
 		$this->load->helper('cookie');
-		$this->session->set_userdata('id', '');
+		$this->session->sess_destroy();
 		delete_cookie('sp_acii');
 		redirect('');
 	}

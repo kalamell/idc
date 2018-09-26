@@ -295,7 +295,7 @@
       // for FB.getLoginStatus().
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        testAPI();
+        loginWeb();
       } else {
         // The person is not logged into your app or we are unable to tell.
         loginfb();
@@ -313,13 +313,25 @@
 
     function loginfb() {
       FB.login(function(response) {
+          var token = '';
           if (response.authResponse) {
-           console.log('Welcome!  Fetching your information.... ');
+           //console.log('Welcome!  Fetching your information.... ');
+
+           token = response.authResponse.accessToken;
+
            FB.api('/me', function(response) {
-             console.log('Good to see you, ' + response.name + '.');
+
+             $.post('<?php echo site_url('auth/dologin');?>', { 
+                'type': 'facebook',
+                'id': response.id,
+                'name': response.name,
+                '_token': token,
+              }, function() {
+                top.location.reload();
+            }) 
            });
           } else {
-           console.log('User cancelled login or did not fully authorize.');
+           //console.log('User cancelled login or did not fully authorize.');
           }
       }, {scope: 'email, public_profile'});
     }
@@ -333,7 +345,7 @@
       });
       
       FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
+        //statusChangeCallback(response);
       });
 
     };
@@ -346,12 +358,29 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
 
-    function testAPI() {
-      console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me', function(response) {
-        console.log('Successful login for: ' + response.name);
-        
-      });
+    function loginWeb() {
+      FB.login(function(response) {
+          var token = '';
+          if (response.authResponse) {
+           //console.log('Welcome!  Fetching your information.... ');
+
+           token = response.authResponse.accessToken;
+
+           FB.api('/me', function(response) {
+
+             $.post('<?php echo site_url('auth/dologin');?>', { 
+                'type': 'facebook',
+                'id': response.id,
+                'name': response.name,
+                '_token': token,
+              }, function() {
+                top.location.reload();
+            }) 
+           });
+          } else {
+           //console.log('User cancelled login or did not fully authorize.');
+          }
+      }, {scope: 'email, public_profile'});
     }
   </script>
 

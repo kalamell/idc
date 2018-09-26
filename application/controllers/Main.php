@@ -16,6 +16,8 @@ class Main extends Base {
 		
 		//$data['knowledge'] = $this->knowledge->searchKnowledge('');
 
+		//print_r($this->session->userdata());
+
 		$category = $this->knowledge->getKnowledgeCategory();
 		$data['knowledgecategory'] = [];
 		foreach($category['data'] as $k => $v) {

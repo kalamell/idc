@@ -8,7 +8,14 @@
                     <div class="logo-wrapper"><a href="<?php echo site_url();?>"><img class="img-responsive" src="<?php echo base_url();?>public/images/logo.png" alt=""></a></div>
                   </div>
                   <div class="col-xs-8">
-                    <div class="header-assets hidden-xs hidden-sm"><a class="profile-name" href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">เข้าสู่ระบบ<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a><a class="search-top" href=""><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
+                    <div class="header-assets hidden-xs hidden-sm">
+                      <?php if ($this->session->userdata('login')):?>
+                        <a href="">สวัสดี <?php echo $this->session->userdata('name');?></a>
+                      <?php else:?>
+                        <a class="profile-name" href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">เข้าสู่ระบบ<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                      
+                      <?php endif;?>
+                      <a class="search-top" href=""><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
                     <div class="hamburger hamburger--slider hidden-md hidden-lg">
                       <div class="hamburger-box">
                         <div class="hamburger-inner"></div>
