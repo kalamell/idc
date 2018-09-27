@@ -23,9 +23,10 @@ class Main extends Base {
 		foreach($category['data'] as $k => $v) {
 			$knowledge = $this->knowledge->getKnowledge($v['_id']);
 			foreach($knowledge['data'] as $inx => $_v) {
-				
-				$data['knowledgecategory'][$_v['_id']] = array(
+				$ondate = strtotime($_v['create_date']);
+				$data['knowledgecategory'][$ondate] = array(
 					'_id' => $_v['_id'],
+					'ondate' => $ondate,
 					'title' => $_v['title'],
 					'subtitle' => $_v['subtitle'],
 					'create_date' => $_v['create_date'],
@@ -37,12 +38,10 @@ class Main extends Base {
 					'share_url' => $_v['share_url'],
 					'category' => array('_id' => $_v['category']['_id'])
 				);
-
 			}
-			
 		}
 
-		ksort($data['knowledgecategory']);
+		usort($data['knowledgecategory'], 'sortdata');
 		$data['knowledge'] = $data['knowledgecategory'];
 		$data['designer'] = $this->designer->getDesignerCategory();
 		$data['producer'] = $this->producer->getProducerCategory();
@@ -50,6 +49,9 @@ class Main extends Base {
 
 		$this->render('index', $data);
 	}
+
+	
+
 
 	public function policy() {
 		$this->render('policy');
