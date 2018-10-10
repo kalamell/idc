@@ -2269,3 +2269,15 @@ body {
 @media (max-width: 480px) {
   .consultation-wrapper .qrcode {
     width: 100%; } }
+
+.mobile-app {
+  margin: 0 5px 0 5px;
+}
+
+.mobile-app img {
+  width: 120px;
+}
+
+.mobile-app:nth-of-type(2) {
+  margin-right: 20px;
+}
