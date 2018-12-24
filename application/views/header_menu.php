@@ -32,7 +32,7 @@
                 <div class="main-menu">
                   <ul>
                           <li><a href="<?php echo site_url('knowledge');?>">KNOWLEDGE</a></li>
-                          <li><a href="<?php echo site_url('find-designer');?>">FIND DESIGNER</a></li>
+                          <li><a href="http://www.designernetwork.in.th/designer">FIND DESIGNER</a></li>
                           <li><a href="<?php echo site_url('find-producer');?>">FIND PRODUCER</a></li>
                           <li><a href="<?php echo site_url('find-supplier');?>">FIND SUPPLIER</a></li>
                           <li><a href="<?php echo site_url('news');?>">NEWS&amp;EVENT</a></li>

@@ -1,7 +1,7 @@
 <?php
 ini_set('memory_limit', -1);
 /**
-ชื่อ 3360600712828 รหัส 0903631399
+
  * CodeIgniter
  *
  * An open source application development framework for PHP

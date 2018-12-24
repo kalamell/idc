@@ -19,7 +19,7 @@
                 <h3 class="title">CATEGORIES</h3>
                 <ul>
                   <li><a href="<?php echo site_url('knowledge');?>">KNOWLEDGE</a></li>
-                  <li><a href="<?php echo site_url('find-designer');?>">FIND DESIGNER </a></li>
+                  <li><a href="http://www.designernetwork.in.th/designer">FIND DESIGNER </a></li>
                   <li><a href="<?php echo site_url('find-producer');?>">FIND PRODUCER</a></li>
                   <li><a href="<?php echo site_url('find-supplier');?>">FIND SUPPLIER</a></li>
                   <li><a href="<?php echo site_url('news');?>">NEWS&EVENT</a></li>
