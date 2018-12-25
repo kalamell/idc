@@ -5,8 +5,8 @@
               <div class="block-wrapper social">
                 <h3 class="title">CONTACT US</h3>
                 <ul>
-                  <li><a href="https://www.facebook.com/idsocietycom">
-                      <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/fb-footer-icon.png" alt=""></div><span>/idsocietycom</span></a></li>
+                  <li><a href="https://www.facebook.com/dip.bisd">
+                      <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/fb-footer-icon.png" alt=""></div><span>/dip.bisd</span></a></li>
                   <li><a href="mailto:thaiidc.dcr@gmail.com">
                       <div class="img-wrapper"><img src="<?php echo base_url();?>public/images/email-footer-icon.png" alt=""></div><span> thaiidc.dcr@gmail.com</span></a></li>
                   <li><a href="tel:022024414">
