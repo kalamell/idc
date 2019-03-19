@@ -80,11 +80,39 @@ class Auth extends CI_Controller {
 	public function dologin() {
 		
 		if ($this->input->post('type') == 'facebook') {
+			/*
 			$this->session->set_userdata(array(
 				'login' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
 				'token' => $this->input->post('_token'),
-			));
+			));*/
+			$data = array(
+				'type' => 'facebook',
+				'username' => $this->input->post('id'),
+				'password' => $this->input->post('_token'),
+			);
+			$rs = $this->ad->login($data);
+
+
+			if ($rs['code'] == 20000) {
+				$this->session->set_userdata(array(
+					'login' => $rs['data']['_id'],
+					'name' => $rs['data']['firstname'].' '.$rs['data']['lastname'],
+					'firstname' => $rs['data']['firstname'],
+					'lastname' => $rs['data']['lastname'],
+					'access_token' => $rs['data']['access_token'],
+					'image' => array(
+						'thumbnail' => $rs['data']['image']['thumbnail'],
+						'full' => $rs['data']['image']['full']
+					),
+				));
+				$ar['result'] = true;
+			} else {
+				$ar['result'] = false;
+			}
+
+			echo json_encode($ar);
+			
 		}
 	}
 

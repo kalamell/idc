@@ -13,7 +13,6 @@ class Auth_model extends MY_Model {
 	}
 
 	public function login($data) {
-		print_r($data);
 		try {
 		    $result = $this->_apiInstance->loginUser($this->_platform, $data['type'], $data['username'], $data['password'], $this->_lang);
 		    return $result;

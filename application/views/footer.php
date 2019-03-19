@@ -6,7 +6,7 @@
 </div>
 
       <?php if ($this->uri->segment(1) == 'profile'):?>
-      <!-- edit profile Modal-->
+      
       <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -19,9 +19,9 @@
               </div>
               <div class="form-wrapper editprofile">
                 <label class="labelInput" for="username">Username</label>
-                <input name="username" type="text" placeholder="Username" value="Thanyamane">
+                <input name="username" type="text" placeholder="Username" value="">
                 <label class="labelInput" for="description">คำอธิบาย</label>
-                <textarea name="description" placeholder="คำอธิบาย">ร้านธัญญมณี บริษัท เอสเอสเอ็น เซลแอนด์ ดิสทริบิวชั่น จำกัด จำหน่ายและผลิตอัญมณีและเครื่องประดับแท้จากช่างฝีมือโดยผ่านการรับรองคุณภาพสินค้าจาก</textarea>
+                <textarea name="description" placeholder="คำอธิบาย"></textarea>
                 <button type="submit"> <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>บันทึกข้อมูล</button>
               </div>
             </div>
@@ -95,7 +95,8 @@
     <script src="<?php echo base_url();?>public/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>public/vendors/slick/slick.min.js"></script>
     <script src="<?php echo base_url();?>public/js/main.js"></script>
-
+  <?php 
+  print_r($this->session->userdata());?>
     <script type="text/javascript">
       $(function() {
         $("#producerModal").on('show.bs.modal', function(e) {
@@ -277,6 +278,17 @@
           }
         });
 
+        $('input#txt-designer').on('keydown', function(e) {
+          var val = $(this).val();
+          if (e.keyCode == 13) {
+             if (val !='') {
+                top.location.href = '<?php echo site_url('find-designer');?>?s=' + encodeURIComponent(val);
+             } else {
+              top.location.href = '<?php echo site_url('find-designer');?>';
+             }
+          }
+        });
+
         $("a.login-fb-btn").on('click', function() {
           checkLoginState();
         })
@@ -312,6 +324,7 @@
     }
 
     function loginfb() {
+      console.log('fb');
       FB.login(function(response) {
           var token = '';
           if (response.authResponse) {
@@ -319,16 +332,20 @@
 
            token = response.authResponse.accessToken;
 
-           FB.api('/me', function(response) {
-
+           FB.api('/me?fields=name,email,id', function(response) {
              $.post('<?php echo site_url('auth/dologin');?>', { 
                 'type': 'facebook',
                 'id': response.id,
+                'username': response.email,
                 'name': response.name,
                 '_token': token,
-              }, function() {
-                top.location.reload();
-            }) 
+              }, function(res) {
+                if (res.result) {
+                  top.location.reload();
+                } else {
+                  $('.tabs a:last').tab('show'); 
+                }
+              }, 'json'); 
            });
           } else {
            //console.log('User cancelled login or did not fully authorize.');
@@ -359,6 +376,8 @@
      }(document, 'script', 'facebook-jssdk'));
 
     function loginWeb() {
+      console.log('fb');
+      
       FB.login(function(response) {
           var token = '';
           if (response.authResponse) {
@@ -366,17 +385,22 @@
 
            token = response.authResponse.accessToken;
 
-           FB.api('/me', function(response) {
-
+           FB.api('/me?fields=name,email,id', function(response) {
              $.post('<?php echo site_url('auth/dologin');?>', { 
                 'type': 'facebook',
                 'id': response.id,
+                'username': response.email,
                 'name': response.name,
                 '_token': token,
-              }, function() {
-                top.location.reload();
-            }) 
+              }, function(res) {
+                if (res.result) {
+                  top.location.reload();
+                } else {
+                  $('.tabs a:last').tab('show'); 
+                }
+              }, 'json'); 
            });
+
           } else {
            //console.log('User cancelled login or did not fully authorize.');
           }

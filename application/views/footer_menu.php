@@ -57,15 +57,16 @@
               </div>
               <div class="form-wrapper editprofile">
                 <label class="labelInput" for="username">Username</label>
-                <input name="username" type="text" placeholder="Username" value="Thanyamane">
+                <input name="username" type="text" placeholder="Username" value="">
                 <label class="labelInput" for="description">คำอธิบาย</label>
-                <textarea name="description" placeholder="คำอธิบาย">ร้านธัญญมณี บริษัท เอสเอสเอ็น เซลแอนด์ ดิสทริบิวชั่น จำกัด จำหน่ายและผลิตอัญมณีและเครื่องประดับแท้จากช่างฝีมือโดยผ่านการรับรองคุณภาพสินค้าจาก</textarea>
+                <textarea name="description" placeholder="คำอธิบาย"></textarea>
                 <button type="submit"> <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>บันทึกข้อมูล</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <!-- edit Portfolio Modal-->
       <div class="modal fade" id="editPortfolioModal" tabindex="-1" role="dialog" aria-labelledby="editPortfolioModalLabel">
         <div class="modal-dialog modal-lg" role="document">

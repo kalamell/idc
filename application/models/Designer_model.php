@@ -35,7 +35,8 @@ class Designer_model extends MY_Model {
 
 	public function getDesignerByCategoryAll($category_id) {
 		try {
-		    $result = $this->_apiInstance->getDesignerByCategoryAll($this->_platform, $category_id, $this->_lang);
+			$result = $this->_apiInstance->getDesignerByCategoryAll($this->_platform, $category_id, $this->_lang);
+			
 		    return $result;
 		} catch (Exception $e) {
 		    //echo 'Exception when calling KnowledgeApi->getKnowledgeCategory: ', $e->getMessage(), PHP_EOL;

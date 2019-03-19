@@ -16,9 +16,10 @@
                   <h3>ประเภทนักออกแบบ</h3>
                 </div>
                 <ul class="lists">
+                
                   <?php foreach($categories['data'] as $k => $v):?>
                     <li class="<?php echo $v['_id'] == $this->uri->segment(3) ? 'active' : '';?>">
-                      <a href="<?php echo site_url('designer/list/'.$v['_id']);?>"><?php echo $v['name']['en'];?></a>
+                      <a href="<?php echo site_url('designer/list/'.$v['_id']);?>"><?php echo $v['name']['th'];?></a>
                     </li>
                   <?php endforeach;?>
                   <!--<li><a href="">costumer designer</a></li>
@@ -71,8 +72,17 @@
                         <div class="assets-list-child-wrapper">
                           <div class="assets-list-child">
                             <ul>
-                              <?php foreach($v['category'] as $_v):?>
-                              <li><a href="<?php echo site_url('designer/list/'.$_v['_id']);?>"><?php echo $_v['name']['th'];?></a></li>
+                              <?php foreach($v['category'] as $_v):
+                                $name = '';
+                                ?>
+                                <?php foreach($categories['data'] as $k => $v) {
+                                  if ($v['_id'] == $_v['_id']) {
+                                    $name = $v['name']['th'];
+                                    braek;
+                                  }
+                                  }?>
+                                  <li><a href="<?php echo site_url('designer/list/'.$_v['_id']);?>"><?php echo $name;?></a></li>
+                                
                               <?php endforeach;?>
                               <!--<li><a href="">Graphic Designer</a></li>
                               <li><a href="">Product Designer</a></li>
@@ -273,9 +283,11 @@
                 -->
                 </div>
 
-                <?php if(count($rs['data']) > 0):?>
+                <!--
+                  <?php if(count($rs['data']) > 0):?>
                 <a class="seemore" href="">SEE MORE</a>
                 <?php endif;?>
+                -->
 
               </div>
             </div>

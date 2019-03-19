@@ -22,7 +22,7 @@ class Designer extends Base {
 	public function data_list($category_id) {
 
 		$data['categories'] = $this->ds->getDesignerCategory();
-		$data['rs'] = $this->ds->getDesignerByCategory($category_id);
+		$data['rs'] = $this->ds->getDesignerByCategoryAll($category_id);
 
 		$this->render('find-designer-list', $data);
 	}

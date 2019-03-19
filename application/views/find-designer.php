@@ -2,7 +2,7 @@
       <div class="search-wrapper-inside">
         <div class="container">
           <div class="search-field"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <input type="text" placeholder="ค้นหา Designer">
+            <input type="text" placeholder="ค้นหา Designer" name="s"  value="<?php echo $this->input->get('s', TRUE);?>" id="txt-designer">
           </div>
         </div>
       </div>
