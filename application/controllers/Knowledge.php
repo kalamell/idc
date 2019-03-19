@@ -18,7 +18,23 @@ class Knowledge extends Base {
 			$knowledge = $this->kl->getKnowledge($v['_id']);
 			$data['knowledgecategory'][$v['name']] = $knowledge['data'];
 		}
+		$datas = array();
+		if ($this->input->get('s')) {
+			$s = $this->kl->searchKnowledge($this->input->get('s'));
+			foreach($s['data'] as $k => $v) {
+				
+				if ($v['name'] == 'All') {
+					if (count($v['knowledges'])>0) {
+						foreach($v['knowledges'] as $_v) {
+							$datas[] = $_v;
+						}
+					}
+				}
+			}
+		}
 
+		$data['search'] = $datas;
+		
 
 		//print_r($data['knowledgecategory']);
 

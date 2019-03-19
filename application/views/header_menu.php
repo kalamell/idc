@@ -16,7 +16,9 @@
                       <a href="https://itunes.apple.com/us/app/thai-idc/id1414803157?mt=8" target="_blank" class="mobile-app"><img src="<?php echo base_url();?>public/images/ios.png" alt=""></a>
 
                       <?php if ($this->session->userdata('login')):?>
-                        <a href="">สวัสดี <?php echo $this->session->userdata('name');?></a>
+                        
+                        <a class="profile-name" href="javascript:void(0)" data-toggle="modal" data-target="#editProfileModal">สวัสดี <?php echo $this->session->userdata('name');?><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+      
                       <?php else:?>
                         <a class="profile-name" href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">เข้าสู่ระบบ<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
       

@@ -1,7 +1,7 @@
       <div class="search-wrapper-inside">
         <div class="container">
           <div class="search-field"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <input type="text" placeholder="ค้นหาชื่อโปรไฟล์ประเภทงาน">
+            <input type="text" name="s"  value="<?php echo $this->input->get('s', TRUE);?>" id="txt-search">
           </div>
         </div>
       </div>
@@ -23,11 +23,14 @@
                 $parts = parse_url($url);
 
                 $url_vdo = '';
-                if (isset($parts['host'])) {
-                  $url_vdo = 'https://www.youtube.com/embed/'.$parts['path'];
-                } else {
-                  if (isset($parts['path'])) {
+
+                if (isset($parts) && $parts['path'] != '') {
+                  if (isset($parts['host'])) {
                     $url_vdo = 'https://www.youtube.com/embed/'.$parts['path'];
+                  } else {
+                    if (isset($parts['path'])) {
+                      $url_vdo = 'https://www.youtube.com/embed/'.$parts['path'];
+                    }
                   }
                 }
               
