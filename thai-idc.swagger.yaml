@@ -1,0 +1,6652 @@
+swagger: "2.0"
+info:
+  version: "v1.1.8"
+  title: "Thai-IDC"
+  description: "What's new<br> 1. Get Knowledge Subcategory (Training) <br> 2. Add API Get Knowledge by subcategory (Training) <br>" 
+  license:
+    name: "Thai-IDC"
+host: "150.95.31.184:3000"
+basePath: "/api/v1"
+schemes:
+  - "http"
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication.
+produces:
+  - "application/json"
+paths:
+  /users/login:
+    post:
+      summary: "Login"
+      description: "Login"
+      tags:
+        - "User"
+      operationId: "loginUser"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "type"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "type is local or facebook"
+          enum:
+          - "local"
+          - "facebook"
+          default: "local"
+        - name: "username"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "credential"
+          in: "formData"
+          required: true
+          type: "string"
+          format: "password"
+          description: "if type is local send password but facebook send socialAccessToken"
+        - name: "deviceId"
+          in: "formData"
+          required: false
+          description: "deviceId is deviceToken of FCM or APNS notification"
+          type: "string"
+      responses:
+        200:
+          description: "User object will be return in data object"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/register:
+    post:
+      summary: "Register"
+      description: "Register"
+      tags:
+        - "User"
+      operationId: "registerUser"
+      produces:
+        - "application/json"
+      consumes:
+        - "multipart/form-data"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+        - name: "type"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "type is local or facebook"
+          enum:
+          - "local"
+          - "facebook"
+          default: "local"
+        - name: "firstname"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "lastname"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "email"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "birthday"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "username"
+          in: "formData"
+          required: false
+          description: "Require if type is local"
+          type: "string"
+        - name: "password"
+          in: "formData"
+          required: false
+          description: "Require if type is local"
+          type: "string"
+          format: "password"
+        - name: "socialId"
+          in: "formData"
+          required: false
+          description: "Require if type is facebook"
+          type: "string"
+        - name: "socialAccessToken"
+          in: "formData"
+          required: false
+          description: "Require if type is facebook"
+          type: "string"
+        - name: "deviceId"
+          in: "formData"
+          required: false
+          description: "deviceId is deviceToken of FCM or APNS notification"
+          type: "string"
+        # - name: "pic"
+        #   in: "formData"
+        #   description: "picture profile of user"
+        #   required: false
+        #   type: "file"
+      responses:
+        200:
+          description: "User object will be return in data object"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/forgot_password:
+    post:
+      summary: "Forgot Password"
+      description: "Forgot Password"
+      tags:
+        - "User"
+      operationId: "forgotPasswordUser"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "email"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/reset_password:
+    post:
+      summary: "Reset Password"
+      description: "Reset Password"
+      tags:
+        - "User"
+      operationId: "resetPasswordUser"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "email"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "formData"
+          required: true
+          type: "string"
+          format: "password"
+          description: "new password"
+        - name: "authCode"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "authCode from email of user"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/me:
+    get:
+      summary: "Get user profile"
+      description: "Get user profile"
+      tags:
+        - "User"
+      operationId: "getUserProfile"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update Profile"
+      description: "Update Profile"
+      tags:
+        - "User"
+      operationId: "updateUserProfile"
+      produces:
+        - "application/json"
+      consumes:
+        - "multipart/form-data"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+        - name: "firstname"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "lastname"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "email"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "birthday"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "deviceId"
+          in: "formData"
+          required: false
+          description: "deviceId is deviceToken of FCM or APNS notification"
+          type: "string"
+        - name: "needNotification"
+          in: "formData"
+          required: false
+          description: "flag for check user need notification"
+          type: "boolean"
+        - name: "pic"
+          in: "formData"
+          description: "picture profile of user"
+          required: false
+          type: "file"
+        - name: "cover"
+          in: "formData"
+          required: false
+          description: "cover is id from API upload image"
+          type: "string"
+      responses:
+        200:
+          description: "User object will be return in data object"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/myFavorite:
+    get:
+      summary: "Get my favorite for web"
+      description: "Get my favorite for web"
+      tags:
+        - "User"
+      operationId: "getMyFavorite"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/UserFavoriteResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/change_password:
+    post:
+      summary: "Change Password"
+      description: "Change Password"
+      tags:
+        - "User"
+      operationId: "changePasswordUser"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "oldPassword"
+          in: "formData"
+          required: true
+          type: "string"
+          format: "password"
+        - name: "newPassword"
+          in: "formData"
+          required: true
+          type: "string"
+          format: "password"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /users/logout:
+    post:
+      summary: "Logout"
+      description: "Logout"
+      tags:
+        - "User"
+      operationId: "logoutUser"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/categories:
+    get:
+      summary: "Get book category"
+      description: "Get book category"
+      tags:
+        - "Book"
+      operationId: "getBookCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/CategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/:
+    get:
+      summary: "Get book"
+      description: "Get book list"
+      tags:
+        - "Book"
+      operationId: "getBook"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "query"
+          description: "Category values that need to be considered for filter"
+          required: false
+          type: "string"
+        - name: "sortField"
+          in: "query"
+          description: "field for sort book list"
+          required: false
+          type: "string"
+        - name: "sortValue"
+          in: "query"
+          description: "sortValue is 1 ASC and -1 DESC"
+          required: false
+          type: "integer"
+          format: "int32"
+        - name: "pagination"
+          in: "query"
+          description: "Pagination for load more book list. Send bookId (_id) last array"
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/BookResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/{bookId}:
+    get:
+      summary: "Get book by id"
+      description: "Get book detail and review response"
+      tags:
+        - "Book"
+      operationId: "getBookById"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "bookId"
+          in: "path"
+          description: "Book id is _id in book object for get book detail"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/BookResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/search:
+    post:
+      summary: "Search book"
+      description: "Search book"
+      tags:
+        - "Book"
+      operationId: "searchBook"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/BookSearchResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/shelf:
+    post:
+      summary: "Download book shelf"
+      description: "Download book shelf"
+      tags:
+        - "Book"
+      operationId: "downloadBookShelf"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "bookId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "bookId is _id from book object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    get:
+      summary: "Get book shelf"
+      description: "Get book shelf"
+      tags:
+        - "Book"
+      operationId: "getBookShelf"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/BookResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/shelf/search:
+    post:
+      summary: "Search book shelf"
+      description: "Search book shelf"
+      tags:
+        - "Book"
+      operationId: "searchBookShelf"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "textSearch for search"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/BookResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /books/shelf/delete:
+    post:
+      summary: "Delete book shelf"
+      description: "Delete book shelf"
+      tags:
+        - "Book"
+      operationId: "deleteBookShelf"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          description: "Pet object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/BookDeleteRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+
+  /reviews/book:
+    post:
+      summary: "Write review book"
+      description: "Write review book"
+      tags:
+        - "Book"
+      operationId: "reviewBookShelf"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "bookId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "bookId is _id from book object"
+        - name: "rating"
+          in: "formData"
+          required: true
+          type: "integer"
+          format: "int32"
+          description: "rating 1 2 3 4 5"
+        - name: "note"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /reviews/like:
+    post:
+      summary: "Like or Unlike review"
+      description: "Like or Unlike review of book"
+      tags:
+        - "Book"
+      operationId: "likeReviewBook"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "reviewId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "reviewId is _id from review object"
+        - name: "action"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "$push is like review. $pull is unlike review"
+          enum:
+          - "$push"
+          - "$pull"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /news/categories:
+    get:
+      summary: "Get news category"
+      description: "Get news category"
+      tags:
+        - "News"
+      operationId: "getNewsCategory"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/CategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /news/{newsCategoryId}:
+    get:
+      summary: "Get news"
+      description: "Get news list"
+      tags:
+        - "News"
+      operationId: "getNews"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+        - name: "sortField"
+          default: "th"
+          in: "query"
+          description: "field for sort book list"
+          required: false
+          type: "string"
+        - name: "sortValue"
+          in: "query"
+          description: "sortValue is 1 ASC and -1 DESC"
+          required: false
+          type: "integer"
+          format: "int32"
+        - name: "pagination"
+          in: "query"
+          description: "Pagination for load more book list. Send bookId (_id) last array"
+          required: false
+          type: "string"
+        - name: "newsCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "news category id from news category object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/NewsResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /news/{newsCategoryId}/{newsId}:
+    get:
+      summary: "Get news by id"
+      description: "Get news detail"
+      tags:
+        - "News"
+      operationId: "getNewsById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "newsId"
+          in: "path"
+          description: "News id is _id in news object for get news detail"
+          required: true
+          type: "string"
+        - name: "newsCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "news category id from news category object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/NewsResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /news/search:
+    post:
+      summary: "Search news"
+      description: "Search news"
+      tags:
+        - "News"
+      operationId: "searchNews"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/NewsSearchResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/categories:
+    get:
+      summary: "Get knowledge category"
+      description: "Get knowledge category"
+      tags:
+        - "Knowledge"
+      operationId: "getKnowledgeCategory"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/CategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/sub_categories/{knowledgeCategoryId}:
+    get:
+      summary: "Get knowledge subcategory"
+      description: "Get knowledge subcategory"
+      tags:
+        - "Knowledge"
+      operationId: "getKnowledgeSubcategory"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "knowledgeCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "knowledge category id from knowledge category object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/CategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/{knowledgeCategoryId}:
+    get:
+      summary: "Get knowledge content list"
+      description: "Get knowledge content list"
+      tags:
+        - "Knowledge"
+      operationId: "getKnowledge"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "knowledgeCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "knowledge category id from knowledge category object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KnowledgeResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/category/{knowledgeCategoryId}/sub_category/{knowledgeSubcategoryId}:
+    get:
+      summary: "Get knowledge by subcategory"
+      description: "Get knowledge by subcategory"
+      tags:
+        - "Knowledge"
+      operationId: "getKnowledgeBySubcategory"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "knowledgeCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "knowledge category id from knowledge category object"
+        - name: "knowledgeSubcategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "knowledge subcategory id from knowledge subcategory object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KnowledgeResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/{knowledgeCategoryId}/{knowledgeId}:
+    get:
+      summary: "Get knowledge content by id"
+      description: "Get knowledge content detail"
+      tags:
+        - "Knowledge"
+      operationId: "getKnowledgeById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "knowledgeCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "knowledge category id from knowledge category object"
+        - name: "knowledgeId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "knowledge id from knowledge object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KnowledgeResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/search:
+    post:
+      summary: "Search knowledge"
+      description: "Search knowledge"
+      tags:
+        - "Knowledge"
+      operationId: "searchKnowledge"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KnowledgeSearchResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/like:
+    post:
+      summary: "Like video"
+      description: "Like or unlike video"
+      tags:
+        - "Knowledge"
+      operationId: "likeKnowledge"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "action"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Action $push is like and $pull is unlike"
+        - name: "knowledgeId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "knowledgeId is video id"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /knowledges/favorite:
+    post:
+      summary: "favorite knowledges for web"
+      description: "Favorite or Unfavorite knowledges for web"
+      tags:
+        - "Knowledge"
+      operationId: "favoriteKnowledge"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "action"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Action $push is favorite and $pull is unfavorite"
+        - name: "knowledgeId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "knowledgeId is id"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /advisors/categories:
+    get:
+      summary: "Get advisor category"
+      description: "Get advisor category"
+      tags:
+        - "Advisor"
+      operationId: "getAdvisorCategory"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/CategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /advisors/{advistorCategoryId}:
+    get:
+      summary: "Get advisor list by category"
+      description: "Get advisor list by category"
+      tags:
+        - "Advisor"
+      operationId: "getAdvisor"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "advistorCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "advistor category id from advistor category object"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/AdvisorResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /advisors/detail/{advistorId}:
+    get:
+      summary: "Get advisor by id"
+      description: "Get advisor by id"
+      tags:
+        - "Advisor"
+      operationId: "getAdvisorById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "advistorId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "advistor id from advistor object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/AdvisorResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /advisors/search:
+    post:
+      summary: "Search advisor"
+      description: "Search advisor"
+      tags:
+        - "Advisor"
+      operationId: "searchAdvisor"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/AdvisorSearchResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /reviews/advisor:
+    post:
+      summary: "Write review advisor"
+      description: "Write review advisor"
+      tags:
+        - "Advisor"
+      operationId: "reviewAdvisor"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "advisorId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "advisorId is _id from advisor object"
+        - name: "rating"
+          in: "formData"
+          required: true
+          type: "integer"
+          format: "int32"
+          description: "rating 1 2 3 4 5"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /rooms/:
+    get:
+      summary: "Get chat room"
+      description: "Get chat room"
+      tags:
+        - "Chat"
+      operationId: "getRoom"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success.If name not null is group chat"
+          schema:
+            $ref: "#/definitions/RoomResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    post:
+      summary: "Create chat room"
+      description: "Create chat room"
+      tags:
+        - "Chat"
+      operationId: "createRoom"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+
+        - in: "body"
+          name: "body"
+          description: "Pet object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/RoomRequest"
+
+        # - name: "users"
+        #   in: "formData"
+        #   description: "users is user._id if create group chat format user1._id,user2._id,user3._id"
+        #   required: true
+        #   type: "string"
+        # - name: "name"
+        #   in: "formData"
+        #   description: "name of chat room case create group chat"
+        #   required: false
+        #   type: "string"
+        # - name: "pic"
+        #   in: "formData"
+        #   description: "picture of chat room case create group chat"
+        #   required: false
+        #   type: "file"
+      responses:
+        200:
+          description: "success return array object chat room newly created."
+          schema:
+            $ref: "#/definitions/RoomResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /rooms/badge:
+    get:
+      summary: "Get badge room"
+      description: "Get badge room"
+      tags:
+        - "Chat"
+      operationId: "getBadge"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/BadgeResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /rooms/{roomId}:
+    get:
+      summary: "Get chat room by id"
+      description: "Get chat room by id"
+      tags:
+        - "Chat"
+      operationId: "getRoomById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "roomId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "room id from room object"
+      responses:
+        200:
+          description: "success.If name not null is group chat"
+          schema:
+            $ref: "#/definitions/RoomResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /rooms/search:
+    post:
+      summary: "Search chat room"
+      description: "Search chat room"
+      tags:
+        - "Chat"
+      operationId: "searchRoom"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/RoomResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /messages/:
+    get:
+      summary: "Get message of chat room"
+      description: "Get message of chat room"
+      tags:
+        - "Chat"
+      operationId: "getMessage"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "roomId"
+          in: "query"
+          required: true
+          type: "string"
+          description: "room id from room object"
+        - name: "pagination"
+          in: "query"
+          description: "Pagination for load more book list. Send bookId (_id) last array"
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/MessageResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /upload/chat:
+    post:
+      summary: "Upload image file sound for chat"
+      description: "Upload image file and sound for chat *** remark response array string url"
+      tags:
+        - "Upload"
+      operationId: "uploadChat"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "file"
+          in: "formData"
+          description: "file for chat response url of file"
+          required: true
+          type: "file"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/UploadResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /upload/images:
+    post:
+      summary: "Upload image"
+      description: "Upload image *** remark response array string id image"
+      tags:
+        - "Upload"
+      operationId: "uploadImage"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "images"
+          in: "formData"
+          description: "image file"
+          required: true
+          type: "file"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/UploadResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /consults/:
+    post:
+      summary: "Create Consult"
+      description: "Create Consult"
+      tags:
+        - "Consult"
+      operationId: "createConsult"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "name"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "firstname - lastname"
+        - name: "email"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "email"
+        - name: "mobileNo"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "Mobile Number"
+        - name: "lineId"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "Line Id"
+        - name: "message"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "message"
+      responses:
+        200:
+          description: "Success Response"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/categories:
+    get:
+      summary: "Get Designer Category"
+      description: "Get Designer Category"
+      tags:
+        - "Designer"
+      operationId: "getDesignerCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "Designer Categories Array"
+          schema:
+            $ref: "#/definitions/DesignerCategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/{categoryId}/:
+    get:
+      summary: "Get Designer by Category"
+      description: "Get Designer by Category"
+      tags:
+        - "Designer"
+      operationId: "getDesignerByCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "designer category id from designer category object"
+        - name: "pagination"
+          in: "query"
+          description: "Pagination for load more designer list. Send designerId (_id) last array"
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "Designer List"
+          schema:
+            $ref: "#/definitions/DesignerResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/{categoryId}/all:
+    get:
+      summary: "Get Designer by Category all for show in map"
+      description: "Get Designer Category for show in map"
+      tags:
+        - "Designer"
+      operationId: "getDesignerByCategoryAll"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "designer category id from designer category object"
+      responses:
+        200:
+          description: "Designer List"
+          schema:
+            $ref: "#/definitions/DesignerResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/{categoryId}/{designerId}:
+    get:
+      summary: "Get Designer by id"
+      description: "Get Designer by id"
+      tags:
+        - "Designer"
+      operationId: "getDesignerById"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "designer category id from designer category object"
+        - name: "designerId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "designer id"
+      responses:
+        200:
+          description: "Designer List"
+          schema:
+            $ref: "#/definitions/DesignerResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/search/:
+    post:
+      summary: "Search Designer"
+      description: "Search Designer"
+      tags:
+        - "Designer"
+      operationId: "searchDesigner"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "textSearch"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "categoryId"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "designer category id from designer category object"
+
+      responses:
+        200:
+          description: "Designer List"
+          schema:
+            $ref: "#/definitions/DesignerResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/favorite:
+    post:
+      summary: "favorite designer for web"
+      description: "Favorite or Unfavorite designer for web"
+      tags:
+        - "Designer"
+      operationId: "favoriteDesigner"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "action"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Action $push is favorite and $pull is unfavorite"
+        - name: "designerId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "designerId is id"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers:
+    post:
+      summary: "Create designer for web"
+      description: "Create designer for web"
+      tags:
+        - "Designer"
+      operationId: "createDesigner"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/DesignerRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update designer for web"
+      description: "Update designer for web"
+      tags:
+        - "Designer"
+      operationId: "updateDesigner"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/DesignerRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /designers/delete:
+    post:
+      summary: "Delete designer"
+      description: "Delete designer"
+      tags:
+        - "Designer"
+      operationId: "deleteDesigner"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              designers:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/categories:
+    get:
+      summary: "Get Producer Category"
+      description: "Get Producer Category"
+      tags:
+        - "Producer"
+      operationId: "getProducerCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "Producer Categories Array"
+          schema:
+            $ref: "#/definitions/DesignerCategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/{categoryId}/:
+    get:
+      summary: "Get Producer by Category"
+      description: "Get Producer by Category"
+      tags:
+        - "Producer"
+      operationId: "getProducerByCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer category id from producer category object"
+        - name: "pagination"
+          in: "query"
+          description: "Pagination for load more producer list. Send producerId (_id) last array"
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "Producer List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/{categoryId}/all:
+    get:
+      summary: "Get Producer by Category all for show in map"
+      description: "Get Producer Category for show in map"
+      tags:
+        - "Producer"
+      operationId: "getProducerByCategoryAll"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer category id from producer category object"
+      responses:
+        200:
+          description: "Producer List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/{categoryId}/{producerId}:
+    get:
+      summary: "Get Producer by id"
+      description: "Get Producer by id"
+      tags:
+        - "Producer"
+      operationId: "getProducerById"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer category id from producer category object"
+        - name: "producerId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer id"
+      responses:
+        200:
+          description: "Producer List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/category/{categoryId}/sub_category/{subCategoryId}:
+    get:
+      summary: "Get Producer by sub category"
+      description: "Get Producer by sub category"
+      tags:
+        - "Producer"
+      operationId: "getProducerBySubCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer category id from producer category object"
+        - name: "subCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "subCategory id"
+      responses:
+        200:
+          description: "Producer List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/page/{pageId}:
+    get:
+      summary: "Get Producer by page"
+      description: "Get Producer by page"
+      tags:
+        - "Producer"
+      operationId: "getProducerByShop"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer category id from producer category object"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "shop id"
+      responses:
+        200:
+          description: "Producer List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/favorite:
+    post:
+      summary: "favorite producer for web"
+      description: "Favorite or Unfavorite producer for web"
+      tags:
+        - "Producer"
+      operationId: "favoriteProducer"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "action"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Action $push is favorite and $pull is unfavorite"
+        - name: "producerId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "producerId is id"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers:
+    post:
+      summary: "Create producer for web"
+      description: "Create producer for web"
+      tags:
+        - "Producer"
+      operationId: "createProducer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ProductRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update producer for web"
+      description: "Update producer for web"
+      tags:
+        - "Producer"
+      operationId: "updateProducer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ProductRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /producers/delete:
+    post:
+      summary: "Delete designer"
+      description: "Delete Page"
+      tags:
+        - "Producer"
+      operationId: "deleteProducer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              producers:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/categories:
+    get:
+      summary: "Get Supplier Category"
+      description: "Get Supplier Category"
+      tags:
+        - "Supplier"
+      operationId: "getSupplierCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "Producer Categories Array"
+          schema:
+            $ref: "#/definitions/DesignerCategoryResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/{categoryId}/:
+    get:
+      summary: "Get Supplier by Category"
+      description: "Get Supplier by Category"
+      tags:
+        - "Supplier"
+      operationId: "getSupplierByCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "supplier category id from supplier category object"
+        - name: "pagination"
+          in: "query"
+          description: "Pagination for load more supplier list. Send supplierId (_id) last array"
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "Supplier List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/{categoryId}/all:
+    get:
+      summary: "Get Supplier by Category all for show in map"
+      description: "Get Supplier Category for show in map"
+      tags:
+        - "Supplier"
+      operationId: "getSupplierByCategoryAll"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "supplier category id from supplier category object"
+      responses:
+        200:
+          description: "Supplier List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/{categoryId}/{supplierId}:
+    get:
+      summary: "Get Supplier by id"
+      description: "Get Supplier by id"
+      tags:
+        - "Supplier"
+      operationId: "getSupplierById"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "supplier category id from supplier category object"
+        - name: "supplierId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "supplier id"
+      responses:
+        200:
+          description: "Supplier List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/category/{categoryId}/sub_category/{subCategoryId}:
+    get:
+      summary: "Get Supplier by sub category"
+      description: "Get Supplier by sub category"
+      tags:
+        - "Supplier"
+      operationId: "getSupplierBySubCategory"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "producer category id from producer category object"
+        - name: "subCategoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "subCategory id"
+      responses:
+        200:
+          description: "Producer List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/page/{pageId}:
+    get:
+      summary: "Get Supplier by page"
+      description: "Get Supplier by page"
+      tags:
+        - "Supplier"
+      operationId: "getSupplierByShop"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "categoryId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "supplier category id from supplier category object"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "shop id"
+      responses:
+        200:
+          description: "Supplier List"
+          schema:
+            $ref: "#/definitions/ProductResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/favorite:
+    post:
+      summary: "favorite supplier for web"
+      description: "Favorite or Unfavorite supplier for web"
+      tags:
+        - "Supplier"
+      operationId: "favoriteSupplier"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "action"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Action $push is favorite and $pull is unfavorite"
+        - name: "supplierId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "supplierId is id"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers:
+    post:
+      summary: "Create supplier for web"
+      description: "Create supplier for web"
+      tags:
+        - "Supplier"
+      operationId: "createSupplier"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ProductRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update supplier for web"
+      description: "Update supplier for web"
+      tags:
+        - "Supplier"
+      operationId: "updateSupplier"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/ProductRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /suppliers/delete:
+    post:
+      summary: "Delete designer"
+      description: "Delete Page"
+      tags:
+        - "Supplier"
+      operationId: "deleteSupplier"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              suppliers:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /report_review/choices:
+    get:
+      summary: "Get report choices"
+      description: "Get report choices"
+      tags:
+        - "Report Review"
+      operationId: "getReportChoices"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ReportChoiceResponse"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /report_review/:
+    post:
+      summary: "Report review"
+      description: Report review"
+      tags:
+        - "Report Review"
+      operationId: "reportReview"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "choiceId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "choiceId is id of choice object"
+        - name: "reviewId"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "reviewId is id of book review"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /pages/{pageId}:
+    get:
+      summary: "Get page by id"
+      description: "Get page by id"
+      tags:
+        - "Page"
+      operationId: "getPage"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "pageId is _id of Page Object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PageResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /pages/me:
+    get:
+      summary: "Get my page"
+      description: "Get my page"
+      tags:
+        - "Page"
+      operationId: "getMyPage"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PageResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /pages/me/{pageId}:
+    get:
+      summary: "Get my page by id"
+      description: "Get my page by id"
+      tags:
+        - "Page"
+      operationId: "getMyPageById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "pageId is _id of Page Object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PageResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /pages:
+    post:
+      summary: "Create Page"
+      description: "Create Page"
+      tags:
+        - "Page"
+      operationId: "createPage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/PageRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update Page"
+      description: "Update Page"
+      tags:
+        - "Page"
+      operationId: "updatePage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/PageRequest"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /pages/delete:
+    post:
+      summary: "Delete Page"
+      description: "Delete Page"
+      tags:
+        - "Page"
+      operationId: "deletePage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              pages:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /idea:
+    get:
+      summary: "Get idea"
+      description: "Get idea"
+      tags:
+        - "Idea"
+      operationId: "getIdea"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/IdeaResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    post:
+      summary: "Create Idea"
+      description: "Create Idea"
+      tags:
+        - "Idea"
+      operationId: "createIdea"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "formData"
+          required: true
+          description: "pageId is _id of Page Object"
+          type: "string"
+        - name: "name"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "detail"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "image"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "image is id from API Upload image"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update Idea"
+      description: "Update Idea"
+      tags:
+        - "Idea"
+      operationId: "updateIdea"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "id"
+          in: "formData"
+          required: true
+          description: "id is _id of Idea Object"
+          type: "string"
+        - name: "pageId"
+          in: "formData"
+          required: false
+          description: "pageId is _id of Page Object"
+          type: "string"
+        - name: "name"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "detail"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "image"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "image is id from API Upload image"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /idea/{id}:
+    get:
+      summary: "Get idea by id"
+      description: "Get idea by id"
+      tags:
+        - "Idea"
+      operationId: "getIdeaById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/IdeaResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /idea/page/{pageId}:
+    get:
+      summary: "Get idea by page"
+      description: "Get idea by page"
+      tags:
+        - "Idea"
+      operationId: "getIdeaByPageId"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "pageId is _id of Page Object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/IdeaResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /idea/delete:
+    post:
+      summary: "Delete Idea"
+      description: "Delete Idea"
+      tags:
+        - "Idea"
+      operationId: "deleteIdea"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              ids:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /portfolio:
+    get:
+      summary: "Get portfolio"
+      description: "Get portfolio"
+      tags:
+        - "Portfolio"
+      operationId: "getPortfolio"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PortfolioResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    post:
+      summary: "Create Portfolio"
+      description: "Create Portfolio"
+      tags:
+        - "Portfolio"
+      operationId: "createPortfolio"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "formData"
+          required: true
+          description: "pageId is _id of Page Object"
+          type: "string"
+        - name: "name"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "detail"
+          in: "formData"
+          required: true
+          type: "string"
+        - name: "image"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "image is id from API Upload image"
+        - name: "designDate"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Format YYYY-MM-DD"
+        - name: "produceDate"
+          in: "formData"
+          required: true
+          type: "string"
+          description: "Format YYYY-MM-DD"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update Portfolio"
+      description: "Update Portfolio"
+      tags:
+        - "Portfolio"
+      operationId: "updatePortfolio"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "id"
+          in: "formData"
+          required: true
+          description: "id is _id of Idea Object"
+          type: "string"
+        - name: "pageId"
+          in: "formData"
+          required: false
+          description: "pageId is _id of Page Object"
+          type: "string"
+        - name: "name"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "detail"
+          in: "formData"
+          required: false
+          type: "string"
+        - name: "image"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "image is id from API Upload image"
+        - name: "designDate"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "Format YYYY-MM-DD"
+        - name: "produceDate"
+          in: "formData"
+          required: false
+          type: "string"
+          description: "Format YYYY-MM-DD"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /portfolio/{id}:
+    get:
+      summary: "Get portfolio by id"
+      description: "Get portfolio by id"
+      tags:
+        - "Portfolio"
+      operationId: "getPortfolioById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PortfolioResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /portfolio/page/{pageId}:
+    get:
+      summary: "Get portfolio by page"
+      description: "Get portfolio by page"
+      tags:
+        - "Portfolio"
+      operationId: "getPortfolioByPageId"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "pageId is _id of Page Object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PortfolioResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /portfolio/delete:
+    post:
+      summary: "Delete Portfolio"
+      description: "Delete Portfolio"
+      tags:
+        - "Portfolio"
+      operationId: "deletePortfolio"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              ids:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /articles:
+    get:
+      summary: "Get article"
+      description: "Get article"
+      tags:
+        - "Article"
+      operationId: "getArticle"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ArticleResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    post:
+      summary: "Create Article"
+      description: "Create Article"
+      tags:
+        - "Article"
+      operationId: "createArticle"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              tag:
+                type: "array"
+                items:
+                  type: "string"
+              pageId:
+                type: "string"
+              title:
+                type: "string"
+              detail:
+                type: "string"
+              image:
+                type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+    put:
+      summary: "Update Article"
+      description: "Update Article"
+      tags:
+        - "Article"
+      operationId: "updateArticle"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+              tag:
+                type: "array"
+                items:
+                  type: "string"
+              pageId:
+                type: "string"
+              title:
+                type: "string"
+              detail:
+                type: "string"
+              image:
+                type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /articles/{id}:
+    get:
+      summary: "Get article by id"
+      description: "Get article by id"
+      tags:
+        - "Article"
+      operationId: "getArticleById"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ArticleResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /articles/page/{pageId}:
+    get:
+      summary: "Get article by page"
+      description: "Get article by page"
+      tags:
+        - "Article"
+      operationId: "getArticleByPageId"
+      produces:
+        - "application/json"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: false
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: false
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - name: "pageId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "pageId is _id of Page Object"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ArticleResponse"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+  /articles/delete:
+    post:
+      summary: "Delete Article"
+      description: "Delete Article"
+      tags:
+        - "Article"
+      operationId: "deleteArticle"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      security:
+       - basicAuth: []
+      parameters:
+        - name: "platform"
+          in: "header"
+          required: true
+          type: "string"
+          description: "platform"
+        - name: "x-access-token"
+          in: "header"
+          required: true
+          type: "string"
+          description: "access token after user login"
+        - name: "x-user"
+          in: "header"
+          required: true
+          type: "string"
+          description: "username or email for check log"
+        - name: "lang"
+          in: "header"
+          required: false
+          type: "string"
+          description: "lang is th or en"
+          enum:
+          - "th"
+          - "en"
+          default: "th"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              ids:
+                type: "array"
+                items:
+                  type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        400:
+          description: "Missing or Invalid Parameter"
+          schema:
+            $ref: "#/definitions/BadRequest"
+        401:
+          description: "Not Authorized"
+          schema:
+            $ref: "#/definitions/NotAuthorized"
+        500:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/SystemError"
+definitions:
+  SuccessResponse:
+    title: "Success Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+    required:
+      - "description"
+      - "code"
+  NotAuthorized:
+    title: "Not Authorized"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+    required:
+      - "description"
+      - "code"
+  BadRequest:
+    title: "Missing or Invalid Parameter"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      developMessage:
+        type: "string"
+    required:
+      - "description"
+      - "code"
+  SystemError:
+    title: "Unexpected error"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+    required:
+      - "description"
+      - "code"
+  UserResponse:
+    title: "User Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        $ref: "#/definitions/User"
+    required:
+      - "description"
+      - "code"
+  User:
+    title: "User Profile Object"
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      # name:
+      #   type: "string"
+      firstname:
+        type: "string"
+      lastname:
+        type: "string"
+      email:
+        type: "string"
+      accessToken:
+        type: "string"
+      needNotification:
+        type: "boolean"
+      birthday:
+        type: "string"
+      image:
+        $ref: "#/definitions/Media"
+      advisorCategories:
+        type: "array"
+        items:
+          type: "string"
+      cover:
+        $ref: "#/definitions/Media"
+    # required:
+    #   - "_id"
+    #   - "name"
+      # - "email"
+      # - "accessToken"
+      # - "image"
+      # - "needNotification"
+  # UserReference:
+  #   title: "User Reference Object"
+  #   type: "object"
+  #   properties:
+  #     _id:
+  #       type: "string"
+  #     name:
+  #       type: "string"
+  #     image:
+  #       $ref: "#/definitions/Media"
+  #   required:
+  #     - "_id"
+  #     - "name"
+      # - "image"
+  Media:
+    title: "Media Object"
+    type: "object"
+    properties:
+      thumbnail:
+        type: "string"
+        description: "Full URL thumbnail media"
+      full:
+        type: "string"
+        description: "Full URL media"
+  BookResponse:
+    title: "Book Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        description: "List of book object"
+        type: "array"
+        items:
+          $ref: "#/definitions/Book"
+    required:
+      - "description"
+      - "code"
+  BookSearchResponse:
+    title: "Book Search Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/BookSearch"
+    required:
+      - "description"
+      - "code"
+  Book:
+    title: "Book Object"
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      title:
+        type: "string"
+      detail:
+        type: "string"
+      createDate:
+        type: "string"
+      reviewCount:
+        type: "integer"
+        format: "int32"
+      rating:
+        type: "integer"
+        format: "int32"
+      image:
+        $ref: "#/definitions/Media"
+      file:
+        type: "string"
+      reviews:
+        type: "array"
+        items:
+          $ref: "#/definitions/Review"
+      publisher:
+        $ref: "#/definitions/Category"
+      category:
+        $ref: "#/definitions/Category"
+      duration:
+        type: "integer"
+        format: "int32"
+    required:
+      - "title"
+      - "image"
+      - "createDate"
+  BookSearch:
+    title: "Book Search Object"
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      books:
+        type: "array"
+        items:
+          $ref: "#/definitions/Book"
+  Review:
+    title: "Review Object"
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      rating:
+        type: "integer"
+        format: "int32"
+      note:
+        type: "string"
+      dateTime:
+        type: "string"
+      likeCount:
+        type: "integer"
+        format: "int32"
+      isLike:
+        type: "boolean"
+      user:
+        $ref: "#/definitions/User"
+  NewsResponse:
+    title: "News Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        description: "List of news object"
+        type: "array"
+        items:
+          $ref: "#/definitions/News"
+    required:
+      - "description"
+      - "code"
+  NewsSearchResponse:
+    title: "News Search Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/NewsSearch"
+    required:
+      - "description"
+      - "code"
+  NewsSearch:
+    title: "News Search Object"
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      news:
+        type: "array"
+        items:
+          $ref: "#/definitions/News"
+  News:
+    title: "News Object"
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      title:
+        type: "string"
+      subtitle:
+        type: "string"
+      detail:
+        type: "string"
+      createDate:
+        type: "string"
+      shareUrl:
+        type: "string"
+      viewCount:
+        type: "integer"
+        format: "int32"
+      source:
+        $ref: "#/definitions/Category"
+      category:
+        $ref: "#/definitions/Category"
+      image:
+        $ref: "#/definitions/Media"
+    # required:
+    #   - "title"
+    #   - "image"
+    #   - "createDate"
+    #   - "viewCount"
+    #   # - "category"
+    #   - "shareUrl"
+  CategoryResponse:
+    title: "Category Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Category"
+    required:
+      - "description"
+      - "code"
+  Category:
+    title: "Category Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          type: "string"
+        image:
+          $ref: "#/definitions/Media"
+        activeImage:
+          $ref: "#/definitions/Media"
+    # required:
+    #   - "description"
+    #   - "code"
+  KnowledgeResponse:
+    title: "Knowledge Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Knowledge"
+    required:
+      - "description"
+      - "code"
+  Knowledge:
+    title: "Knowledge Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        title:
+          type: "string"
+        subtitle:
+          type: "string"
+        createDate:
+          type: "string"
+        likeCount:
+          type: "integer"
+          format: "int32"
+        isLike:
+          type: "boolean"
+        image:
+          $ref: "#/definitions/Media"
+        youtubeId:
+          type: "string"
+        detail:
+          type: "string"
+        shareUrl:
+          type: "string"
+        category:
+          $ref: "#/definitions/Category"
+    # required:
+    #   - "_id"
+    #   - "title"
+    #   - "createDate"
+    #   - "image"
+  KnowledgeSearchResponse:
+    title: "Knowledge Search Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/KnowledgeSearch"
+    required:
+      - "description"
+      - "code"
+  KnowledgeSearch:
+    title: "Knowledge Search Object"
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      knowledges:
+        type: "array"
+        items:
+          $ref: "#/definitions/Knowledge"
+  AdvisorResponse:
+    title: "Advisor Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Advisor"
+    required:
+      - "description"
+      - "code"
+  Advisor:
+    title: "Advisor Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        firstname:
+          type: "string"
+        lastname:
+          type: "string"
+        image:
+          $ref: "#/definitions/Media"
+        rating:
+          type: "integer"
+          format: "int32"
+        reviewCount:
+          type: "integer"
+          format: "int32"
+        detail:
+          type: "string"
+        isOnline:
+          type: "boolean"
+        roomId:
+          type: "string"
+        advisorCategories:
+          type: "array"
+          items:
+            type: "string"
+    required:
+      - "_id"
+      # - "user"
+      # - "rating"
+      # - "reviewCount"
+      # - "detail"
+      # - "isOnline"
+  AdvisorSearchResponse:
+    title: "Advisor Search Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/AdvisorSearch"
+    required:
+      - "description"
+      - "code"
+  AdvisorSearch:
+    title: "Advisor Search Object"
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      advisors:
+        type: "array"
+        items:
+          $ref: "#/definitions/Advisor"
+  RoomResponse:
+    title: "Room Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Room"
+    required:
+      - "description"
+      - "code"
+  Room:
+    title: "Room Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          type: "string"
+          description: "if not null is room chat group"
+        image:
+          $ref: "#/definitions/Media"
+        user:
+          type: "array"
+          items:
+            $ref: "#/definitions/User"
+        lastMsg:
+          type: "string"
+        unreadCount:
+          type: "integer"
+          format: "int32"
+        lastAccess:
+          type: "string"
+    # required:
+    #   - "_id"
+    #   - "user"
+    #   - "lastMsg"
+    #   - "unreadCount"
+    #   - "lastAccess"
+  BadgeResponse:
+    title: "Badge Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "integer"
+        format: "int32"
+    required:
+      - "description"
+      - "code"
+  MessageResponse:
+    title: "Room Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Message"
+    required:
+      - "description"
+      - "code"
+  Message:
+    title: "Message"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        message:
+          type: "string"
+        user:
+          $ref: "#/definitions/User"
+        type:
+          type: "string"
+          enum:
+          - "message"
+          - "image"
+          - "file"
+        time:
+          type: "string"
+    required:
+      - "_id"
+      - "user"
+      - "lastMsg"
+      - "unreadCount"
+      - "lastAccess"
+  RoomRequest:
+    title: "Room Request"
+    type: "object"
+    properties:
+        name:
+          type: "string"
+        image:
+          type: "string"
+        users:
+          type: "array"
+          items:
+            type: "string"
+  BookDeleteRequest:
+    title: "Book id array"
+    type: "object"
+    properties:
+        books:
+          type: "array"
+          items:
+            type: "string"
+            description: "books is array of book id"
+    required:
+      - "_id"
+      - "user"
+      - "lastMsg"
+      - "unreadCount"
+      - "lastAccess"
+  UploadResponse:
+    title: "Upload Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          # $ref: "#/definitions/Upload"
+          type: "string"
+    required:
+      - "description"
+      - "code"
+  # Upload:
+  #   title: "Upload"
+  #   type: "string"
+  DesignerCategoryResponse:
+    title: "Designer Category Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/DesignerCategory"
+    required:
+      - "description"
+      - "code"
+  DesignerCategory:
+    title: "Designer Category Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          $ref: "#/definitions/MultipleLang"
+        image:
+          $ref: "#/definitions/Media"
+        activeImage:
+          $ref: "#/definitions/Media"
+  MultipleLang:
+    title: "Multiple Language Object"
+    type: "object"
+    properties:
+        th:
+          type: "string"
+        en:
+          type: "string"
+  DesignerResponse:
+    title: "Designer list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Designer"
+    required:
+      - "description"
+      - "code"
+  Designer:
+    title: "Designer Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        # name:
+        #   type: "string"
+        # image:
+        #   $ref: "#/definitions/Media"
+        # mobileNo:
+        #   type: "string"
+        user:
+          $ref: "#/definitions/User"
+        tel:
+          type: "string"
+        lat:
+          type: "number"
+          format: "double"
+        lon:
+          type: "number"
+          format: "double"
+        category:
+          type: "array"
+          items:
+            $ref: "#/definitions/Category"
+  DesignerRequest:
+    title: "Designer Request Object"
+    type: "object"
+    properties:
+        id:
+          type: "string"
+        tel:
+          type: "string"
+        lat:
+          type: "number"
+          format: "double"
+        lon:
+          type: "number"
+          format: "double"
+        category:
+          type: "array"
+          items:
+            type: "string"
+  ProductResponse:
+    title: "Product list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+    required:
+      - "description"
+      - "code"
+  Product:
+    title: "Product Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          type: "string"
+        image:
+          $ref: "#/definitions/Media"
+        imageList:
+          type: "array"
+          items:
+            $ref: "#/definitions/Media"
+        detail:
+          type: "string"
+        lat:
+          type: "number"
+          format: "double"
+        lon:
+          type: "number"
+          format: "double"
+        producerCategory:
+          $ref: "#/definitions/DesignerCategory"
+        supplierCategory:
+          $ref: "#/definitions/DesignerCategory"
+        page:
+          $ref: "#/definitions/Page"
+  ProductRequest:
+    title: "Product Request Object"
+    type: "object"
+    properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        image:
+          type: "string"
+        imageList:
+          type: "array"
+          items:
+            type: "string"
+        detail:
+          type: "string"
+        price:
+          type: "number"
+          format: "int32"
+        lat:
+          type: "number"
+          format: "double"
+        lon:
+          type: "number"
+          format: "double"
+        producerCategoryId:
+          type: "string"
+        supplierCategoryId:
+          type: "string"
+        pageId:
+          type: "string"
+        subCategoryId:
+          type: "string"
+  UserFavoriteResponse:
+    title: "User Favorite list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserFavorite"
+    required:
+      - "description"
+      - "code"
+  UserFavorite:
+    title: "User Favorite Object"
+    type: "object"
+    properties:
+      designers:
+        type: "array"
+        items:
+          $ref: "#/definitions/Designer"
+      knowledges:
+        type: "array"
+        items:
+          $ref: "#/definitions/Knowledge"
+      videos:
+        type: "array"
+        items:
+          $ref: "#/definitions/Knowledge"
+      trains:
+        type: "array"
+        items:
+          $ref: "#/definitions/Knowledge"
+      producers:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+      suppliers:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+  ReportChoiceResponse:
+    title: "Report Choice list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ReportChoice"
+    required:
+      - "description"
+      - "code"
+  ReportChoice:
+    title: "Report Choice Object"
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      title:
+        type: "string"
+  PageResponse:
+    title: "Page Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Page"
+    required:
+      - "description"
+      - "code"
+  Page:
+    title: "Page Object"
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      name:
+        type: "string"
+      type:
+        type: "array"
+        items:
+          type: "string"
+      schedule:
+        type: "array"
+        items:
+          $ref: "#/definitions/Schedule"
+      tel:
+        type: "string"
+      website:
+        type: "string"
+      facebook:
+        type: "string"
+      address:
+        type: "string"
+      image:
+        $ref: "#/definitions/Media"
+      cover:
+        $ref: "#/definitions/Media"
+  PageRequest:
+    title: "Page Request Object"
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      type:
+        type: "array"
+        items:
+          type: "string"
+      schedule:
+        type: "array"
+        items:
+          $ref: "#/definitions/Schedule"
+      tel:
+        type: "string"
+      website:
+        type: "string"
+      facebook:
+        type: "string"
+      address:
+        type: "string"
+      image:
+        type: "string"
+      cover:
+        type: "string"
+  Schedule:
+    title: "Schedule Object"
+    type: "object"
+    properties:
+      day:
+        type: "string"
+      startTime:
+        type: "string"
+      endTime:
+        type: "string"
+  IdeaResponse:
+    title: "Idea list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Idea"
+    required:
+      - "description"
+      - "code"
+  Idea:
+    title: "Idea Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          type: "string"
+        image:
+          $ref: "#/definitions/Media"
+        detail:
+          type: "string"
+        createDate:
+          type: "string"
+  PortfolioResponse:
+    title: "Portfolio list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Portfolio"
+    required:
+      - "description"
+      - "code"
+  Portfolio:
+    title: "Portfolio Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          type: "string"
+        image:
+          $ref: "#/definitions/Media"
+        detail:
+          type: "string"
+        createDate:
+          type: "string"
+        designDate:
+          type: "string"
+        produceDate:
+          type: "string"
+  ArticleResponse:
+    title: "Article list Response"
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      description:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Article"
+    required:
+      - "description"
+      - "code"
+  Article:
+    title: "Article Object"
+    type: "object"
+    properties:
+        _id:
+          type: "string"
+        name:
+          type: "string"
+        image:
+          $ref: "#/definitions/Media"
+        detail:
+          type: "string"
+        createDate:
+          type: "string"
+        tag:
+          type: "array"
+          items:
+            $ref: "#/definitions/Category"
