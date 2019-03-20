@@ -1,0 +1,2955 @@
+{
+	"info": {
+		"_postman_id": "3fd0e477-fdb5-911a-4069-5feb257105e1",
+		"name": "THAI-IDC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register with username",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "birthday",
+							"value": "1989-10-25",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "atthapon.kr3@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "pic",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "needNotification",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "Atthapon",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "local",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "atthapok3",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "Kethiran",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9247757-3724-4a33-9cdf-7ccc3059ad8e",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"if (jsonData && jsonData.data){",
+							"    postman.setEnvironmentVariable(\"accessToken\", jsonData.data.accessToken);",
+							"    postman.setEnvironmentVariable(\"email\", jsonData.data.email);",
+							"    postman.setEnvironmentVariable(\"userId\", jsonData.data._id);",
+							"}",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"local\",\n  \"username\": \"atthapok\",\n  \"credential\": \"123456\",\n  \"deviceId\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjVhYzBlOTU3OGRhNmMwNzQwZDkzZmNhNyJ9LCJpYXQiOjE1MjI1OTY4NzYsImV4cCI6MTUyNDM3ODY3MjkwNX0.PaN3V9T2yfPquXX5hFwd6kRRcbdBTYsy4FcH9vt7uig\"\n}"
+				},
+				"url": {
+					"raw": "https://backend.thai-idc.com/api/v1/users/login",
+					"protocol": "https",
+					"host": [
+						"backend",
+						"thai-idc",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with social",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"if (jsonData && jsonData.data){",
+							"    postman.setEnvironmentVariable(\"accessToken\", jsonData.data.accessToken);",
+							"    postman.setEnvironmentVariable(\"email\", jsonData.data.email);",
+							"    postman.setEnvironmentVariable(\"userId\", jsonData.data._id);",
+							"}",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"facebook\",\n  \"username\": \"756596581088572\",\n  \"credential\": \"EAACEdEose0cBAEjwo0YVj0ghmzgqmHUIvLf67sZBk8Yt8vDBnZCZCK65ZCXSx8YPWhYzkxJXcHpjbZBnsVmoYU3V7UjpJWykmEozmOGx2NoQMwOqww3Mo9ZB3l7dKgYTXpxj0NUSChmDUO4vZCidETn8VFdkaQZCYH1vfZA6h3gOt3xss3LTF1lUZB1XZBvwXtkMJ0ZD\",\n  \"deviceId\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9EAACLbA6ojW4BAF4e2wGhGImE6CrpjrUNNRGRROuASKbVJXgeFKkGvSmfPf7yNi3BgJHIK5W3k2pVbnxo8ywkeCEV30ZAyBSARGR0adfaMl54BSbMpf1xvYZCkAWn0HEruAFNuljfZBhwSnV6zlxrgWNZBJpqDAVzDDnX2z0Jf7VsbipNLloZBrrGtCRueZAbcZD\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Get user profile",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"if (jsonData && jsonData.data){",
+							"    postman.setEnvironmentVariable(\"accessToken\", jsonData.data.accessToken);",
+							"    postman.setEnvironmentVariable(\"email\", jsonData.data.email);",
+							"    postman.setEnvironmentVariable(\"userId\", jsonData.data._id);",
+							"}",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\":\"atthapon.kr@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/forgot_password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"forgot_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\":\"atthapon.kr@gmail.com\",\n  \"password\": \"123456\",\n  \"authCode\": \"uqRDTzIw\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/reset_password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"reset_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change password",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"oldPassword\":\"123456\",\n  \"newPassword\":\"1234567\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/change_password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"change_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update profile",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "birthday",
+							"value": "1989-10-25",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "atthapon.kr@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "pic",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "needNotification",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "Atthapok",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "Test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/users/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Chat",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/upload/chat",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"upload",
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create room",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"users\": [\"5ac6d9b68da6c0740d945d50\",\"5ac722f48da6c0740d947559\"]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/rooms",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get room",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/rooms",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get news category",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/news/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Designer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "web"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://backend.thai-idc.com/api/v1/designers/5af7a9b78da6c0740da6b034/all",
+					"protocol": "https",
+					"host": [
+						"backend",
+						"thai-idc",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"designers",
+						"5af7a9b78da6c0740da6b034",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get news",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/news/5ae286dc8da6c0740d9cbd8a",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"5ae286dc8da6c0740d9cbd8a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get news by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/news/5ae286dc8da6c0740d9cbd8a/5ac883908da6c0740d94c8ce",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"5ae286dc8da6c0740d9cbd8a",
+						"5ac883908da6c0740d94c8ce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get news by pagination",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/news/5ae286dc8da6c0740d9cbd8a?pagination=5ac87f618da6c0740d94c6de",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"5ae286dc8da6c0740d9cbd8a"
+					],
+					"query": [
+						{
+							"key": "pagination",
+							"value": "5ac87f618da6c0740d94c6de"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search news",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"textSearch\":\"Seminar\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/news/search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get knowledge category",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/knowledges/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"knowledges",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get knowledge",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/knowledges/5ac859fd8da6c0740d94b862",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"knowledges",
+						"5ac859fd8da6c0740d94b862"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get knowledge by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/knowledges/5ac859fd8da6c0740d94b866/5ac863e58da6c0740d94bc10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"knowledges",
+						"5ac859fd8da6c0740d94b866",
+						"5ac863e58da6c0740d94bc10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get knowledge by pagination",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/knowledges/5ac859fd8da6c0740d94b862?pagination=5ac869858da6c0740d94be34",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"knowledges",
+						"5ac859fd8da6c0740d94b862"
+					],
+					"query": [
+						{
+							"key": "pagination",
+							"value": "5ac869858da6c0740d94be34"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search knowledge",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"textSearch\":\"s\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/knowledges/search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"knowledges",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like knowledge",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"knowledgeId\":\"5ac869858da6c0740d94be34\",\n  \"action\": \"$push\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/knowledges/like",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"knowledges",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book by category",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books?categoryId=5acdbff38da6c0740d95f60d",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books"
+					],
+					"query": [
+						{
+							"key": "categoryId",
+							"value": "5acdbff38da6c0740d95f60d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books/5acdc2e88da6c0740d95f75d",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"5acdc2e88da6c0740d95f75d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search book",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"textSearch\":\"s\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books/search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add book shelf",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookId\":\"5acdc3b18da6c0740d95f7ba\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books/shelf",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"shelf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book shelf",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"books\": [\"5acdc3b18da6c0740d95f7ba\",\"5acdc2e88da6c0740d95f75d\"]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books/shelf",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"shelf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book shelf",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books/shelf",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"shelf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Review Book",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookId\":\"5acdc3b18da6c0740d95f7ba\",\n  \"rating\": 3,\n  \"note\": \"ดีครับ\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/reviews/book",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reviews",
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like Review",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reviewId\":\"5acecff8ff5bdb03b6b9a04e\",\n  \"action\": \"$push\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/reviews/like",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reviews",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get advistor category",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/advisors/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"advisors",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get advistor by category",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/advisors/5acf0e558da6c0740d96585f",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"advisors",
+						"5acf0e558da6c0740d96585f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get advistor by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/advisors/5acf0e558da6c0740d96585f/5ac722f48da6c0740d947559",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"advisors",
+						"5acf0e558da6c0740d96585f",
+						"5ac722f48da6c0740d947559"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Review advisor",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"advisorId \":\"5acdc3b18da6c0740d95f7ba\",\n  \"rating\": 3\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/reviews/advisor",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reviews",
+						"advisor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search advisor",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"textSearch\": \"Att\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/advisors/search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"advisors",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Image",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "images",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/upload/images",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"upload",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get message",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/messages?roomId=5ad578a5816ab44a10e5c315",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "roomId",
+							"value": "5ad578a5816ab44a10e5c315"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create message",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"room\":\"5ad40585da1433484c61d1a3\",\n  \"user\": \"5ac722f48da6c0740d947559\",\n  \"type\": \"message\",\n  \"message\": \"Test\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/messages",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book category",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/books/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search room",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"textSearch\":\"s\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/rooms/search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"rooms",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get room by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "5162aac68af75dad517207c966acfe08d7d7b2cb0d2c77176229a9c6487648c9",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "63e99f11e8b5a72a5f0c892e8a4d9d140ddf2c8d47db375179136126fde23706",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "platform",
+						"value": "ios"
+					},
+					{
+						"key": "lang",
+						"value": "th"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}"
+					},
+					{
+						"key": "x-user",
+						"value": "{{email}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/rooms/5ad585f79c6a271adcb97fb2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"rooms",
+						"5ad585f79c6a271adcb97fb2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
